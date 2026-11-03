@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>解表药 · 三级分类记忆导图</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f5f6f9; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e6e8ee;
+    --han:#c0712a; --re:#2f6fd0;
+    --radius:14px;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(135deg,#1f2430 0%,#313a4d 60%,#3d4a63 100%);
+    color:#fff; padding:26px 20px 0; position:sticky; top:0; z-index:50;
+    box-shadow:0 2px 14px rgba(0,0,0,.12);
+  }
+  .head-inner{max-width:1200px;margin:0 auto}
+  h1{font-size:21px;letter-spacing:.5px;font-weight:700}
+  h1 span{font-weight:400;font-size:12.5px;color:#a9b4c7;margin-left:10px;letter-spacing:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 12px;font-size:12.5px;color:#c3cbd9}
+  .legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:1px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:12px}
+  nav a{
+    color:#dfe4ec;text-decoration:none;font-size:13.5px;padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.08);transition:.18s;white-space:nowrap;
+  }
+  nav a:hover{background:rgba(255,255,255,.2);color:#fff}
+  main{max-width:1200px;margin:0 auto;padding:26px 20px 70px}
+  section{scroll-margin-top:150px;margin-bottom:48px;--c:var(--han)}
+  .g-re{--c:var(--re)}
+
+  .grp-title{
+    display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+    padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:12px;
+  }
+  .grp-title .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+  .grp-title small{font-weight:400;font-size:12.5px;color:var(--muted);margin-left:auto}
+
+  .axis{
+    background:#fff;border:1px dashed var(--c);border-radius:10px;padding:9px 14px;
+    font-size:12.8px;color:#404857;margin-bottom:18px;
+  }
+  .axis b{color:var(--c)}
+
+  .cluster{
+    border-radius:16px;padding:13px 14px 15px;margin-bottom:16px;
+    background:color-mix(in srgb, var(--c) 5%, #fff);
+    border:1px solid color-mix(in srgb, var(--c) 18%, #fff);
+    border-left:5px solid var(--c);
+  }
+  .cluster-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .cluster-head .num{
+    flex:none;width:24px;height:24px;border-radius:8px;background:var(--c);color:#fff;
+    display:grid;place-items:center;font-size:12px;font-weight:700;
+  }
+  .cluster-head h3{font-size:15.5px;font-weight:700;letter-spacing:.2px}
+  .cluster-head .hint{
+    font-size:12px;color:var(--muted);margin-left:auto;text-align:right;
+    background:rgba(255,255,255,.75);padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:11px}
+  .card{
+    background:var(--card);border-radius:12px;padding:12px 14px 13px;
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(0,0,0,.035);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.09)}
+  .card h4{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .tag{
+    font-size:11px;font-weight:500;padding:1px 8px;border-radius:999px;
+    background:color-mix(in srgb, var(--c) 12%, #fff);
+    color:var(--c);border:1px solid color-mix(in srgb, var(--c) 30%, #fff);
+    white-space:nowrap;
+  }
+  .line{font-size:12.8px;color:#3d4553;margin-top:4px;display:flex;gap:7px;align-items:flex-start}
+  .k{
+    flex:none;font-size:10.5px;line-height:1.75;padding:0 6px;border-radius:5px;
+    background:#eef0f4;color:#5a6474;margin-top:2px;
+  }
+  .k.g{background:#e7f5ee;color:#1f7d56}
+  .k.r{background:#fdeee9;color:#c04a22}
+  .k.b{background:#eaf1fc;color:#2b5fa8}
+  .k.p{background:#f2ecfd;color:#6a3fc0}
+  .note{color:#b3401f;font-weight:600}
+
+  .vs{
+    margin-top:10px;font-size:12.5px;color:#4b5464;line-height:1.7;
+    background:rgba(255,255,255,.8);border-left:3px solid var(--c);
+    padding:7px 11px;border-radius:8px;
+  }
+  .vs b{color:var(--c)}
+
+  footer{text-align:center;font-size:12.5px;color:#9aa3b2;padding:0 20px 40px}
+
+  @media print{
+    header{position:static;background:#fff;color:#000;box-shadow:none;border-bottom:1px solid #ccc}
+    h1 span,.legend,nav{display:none}
+    body{background:#fff}
+    .card,.cluster{break-inside:avoid;box-shadow:none}
+    section{margin-bottom:22px}
+  }
+  @media (max-width:520px){
+    h1{font-size:17px} h1 span{display:block;margin:4px 0 0}
+    .grid{grid-template-columns:1fr}
+    .cluster-head .hint{margin-left:0;width:100%;text-align:left}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="site-page" data-page="解表药.html">
+
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="解表药.html" data-page="解表药.html">解表</a>
+      <a href="清热药.html" data-page="清热药.html">清热</a>
+      <a href="攻下药.html" data-page="攻下药.html">泻下</a>
+      <a href="利水渗湿药.html" data-page="利水渗湿药.html">祛湿</a>
+      <a href="温里药.html" data-page="温里药.html">温里</a>
+      <a href="止咳化痰药.html" data-page="止咳化痰药.html">化痰</a>
+      <a href="行气消食药.html" data-page="行气消食药.html">理气</a>
+      <a href="活血止血药.html" data-page="活血止血药.html">活血</a>
+      <a href="补虚益气药.html" data-page="补虚益气药.html">补虚</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+<header>
+  <div class="head-inner">
+    <h1>解表药 · 三级分类记忆导图<span>大类 → 子类 → 药｜先记“表证性质”，再记“类内差在哪”</span></h1>
+    <div class="legend">
+      <span><b style="background:#eef0f4"></b>共同功效</span>
+      <span><b style="background:#fdeee9"></b>差异特长</span>
+      <span><b style="background:#eaf1fc"></b>主证关键词</span>
+      <span><b style="background:#f2ecfd"></b>注意 / 药力峻缓</span>
+    </div>
+    <nav>
+      <a href="#han">发散风寒药</a>
+      <a href="#re">发散风热药</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 发散风寒药 ==================== -->
+<section id="han" class="g-han">
+  <h2 class="grp-title"><span class="dot"></span>发散风寒药<small>8 味 · 3 个子类</small></h2>
+  <div class="axis">
+    <b>三条轴：</b>①<b>开表/解肌</b>——麻黄（表实无汗）｜桂枝（有汗无汗均可，通阳化饮降冲）｜葛根（项背强痛，生津止泻）。②<b>平缓解表偏中焦</b>——紫苏叶（兼理气）｜生姜（最弱，主中焦寒饮呕逆）。③<b>祛风</b>——荆芥（平和透疹散疮）｜防风（胜湿止痉）｜独活（善下行，下焦痹痛）。
+  </div>
+
+  <!-- 1 开表/解肌 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>开表发汗 · 解肌通阳</h3>
+      <span class="hint">麻黄表实无汗，桂枝有汗无汗均可，葛根项背强痛</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>麻黄<span class="tag">开表闭</span></h4>
+        <p class="line"><span class="k g">功效</span>发汗解表，宣肺平喘，利水消肿</p>
+        <p class="line"><span class="k r">特长</span>开表闭，发汗力强，<b>专太阳表实无汗</b></p>
+        <p class="line"><span class="k b">主证</span>太阳表实无汗；肺气壅遏喘咳；风水水肿</p>
+      </article>
+      <article class="card">
+        <h4>桂枝<span class="tag">解肌通阳</span></h4>
+        <p class="line"><span class="k g">功效</span>发汗解肌，温通经脉，助阳化气</p>
+        <p class="line"><span class="k r">特长</span>解肌通阳，<b>表证有汗无汗均可</b>；兼通阳化饮降冲</p>
+        <p class="line"><span class="k b">主证</span>风寒表虚有汗、表实无汗均可；胸阳不振痰饮；奔豚气</p>
+      </article>
+      <article class="card">
+        <h4>葛根<span class="tag">解肌项背</span></h4>
+        <p class="line"><span class="k g">功效</span>解肌退热，生津止渴，透疹，升阳止泻</p>
+        <p class="line"><span class="k r">特长</span>解肌，<b>专门针对表证伴项背僵硬强痛</b>；兼生津止泻</p>
+        <p class="line"><span class="k b">主证</span>表证项背强痛；热病口渴；脾虚泄泻</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>麻黄<b>表实无汗</b>专用，发汗力强；桂枝<b>有汗无汗均可</b>，兼通阳化饮降冲；葛根<b>专攻项背僵硬强痛</b>，兼生津止泻。</div>
+  </div>
+
+  <!-- 2 平缓解表偏中焦 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>平缓解表 · 偏中焦</h3>
+      <span class="hint">紫苏叶兼理气，生姜最弱主中焦</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>紫苏叶<span class="tag">兼理气</span></h4>
+        <p class="line"><span class="k g">功效</span>解表散寒，行气和胃</p>
+        <p class="line"><span class="k r">特长</span>解表力平缓，<b>表寒合并脾胃气滞首选</b></p>
+        <p class="line"><span class="k b">主证</span>风寒表证兼脾胃气滞、胸闷呕恶</p>
+      </article>
+      <article class="card">
+        <h4>生姜<span class="tag">最弱辅药</span></h4>
+        <p class="line"><span class="k g">功效</span>解表散寒，温中止呕，化痰止咳</p>
+        <p class="line"><span class="k r">特长</span>解表力最弱，<b>主打中焦寒饮呕逆</b>，多作辅药</p>
+        <p class="line"><span class="k b">主证</span>中焦寒饮呕逆；风寒表证轻证（辅药）</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>紫苏叶<b>表寒+脾胃气滞首选</b>，兼行气和胃；生姜<b>解表最弱、主中焦寒饮呕逆</b>，多作辅药。</div>
+  </div>
+
+  <!-- 3 祛风 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>祛风散表 · 透疹 / 胜湿 / 下行</h3>
+      <span class="hint">荆芥平和透疹，防风胜湿止痉，独活善下行</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>荆芥<span class="tag">平和透疹</span></h4>
+        <p class="line"><span class="k g">功效</span>解表散风，透疹，消疮</p>
+        <p class="line"><span class="k r">特长</span>药性平和，<b>不分风寒风热</b>，祛风散表，擅长透疹散疮</p>
+        <p class="line"><span class="k b">主证</span>风寒风热表证均可；麻疹不透；疮疡初起</p>
+      </article>
+      <article class="card">
+        <h4>防风<span class="tag">胜湿止痉</span></h4>
+        <p class="line"><span class="k g">功效</span>祛风解表，胜湿止痛，止痉</p>
+        <p class="line"><span class="k r">特长</span>祛风兼胜湿，<b>风药润剂</b>，擅长头身湿痛，还可止痉</p>
+        <p class="line"><span class="k b">主证</span>风寒表证头身痛；风湿痹痛；破伤风抽搐</p>
+      </article>
+      <article class="card">
+        <h4>独活<span class="tag">善下行</span></h4>
+        <p class="line"><span class="k g">功效</span>祛风湿，止痛，解表</p>
+        <p class="line"><span class="k r">特长</span>辛苦微温，<b>善下行</b>，擅长下焦腰膝风湿痹痛；兼解风寒夹湿之表</p>
+        <p class="line"><span class="k b">主证</span>下焦腰膝风湿痹痛；风寒夹湿表证</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>荆芥<b>平和、不分风寒风热、透疹散疮</b>；防风<b>风药润剂、胜湿止痉</b>，主头身湿痛、抽搐；独活<b>善下行、主下焦腰膝痹痛</b>，兼解风寒夹湿表。</div>
+  </div>
+</section>
+
+<!-- ==================== 发散风热药 ==================== -->
+<section id="re" class="g-re">
+  <h2 class="grp-title"><span class="dot"></span>发散风热药<small>5 味 · 4 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>薄荷＝辛凉上浮清头目利咽疏肝；牛蒡子·蝉蜕＝风热咽痛（一个解毒滑肠，一个音哑息风）；桑叶＝风热燥咳润燥；菊花＝辛凉轻清平肝止眩。
+  </div>
+
+  <!-- 1 辛凉上浮 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>辛凉上浮 · 清头目利咽</h3>
+      <span class="hint">风热外感兼疏肝</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>薄荷<span class="tag">上浮疏肝</span></h4>
+        <p class="line"><span class="k g">功效</span>疏散风热，清利头目，利咽透疹，疏肝行气</p>
+        <p class="line"><span class="k r">特长</span>辛凉上浮，风热外感，<b>清头目利咽，兼疏肝</b></p>
+        <p class="line"><span class="k b">主证</span>风热外感；头痛目赤、咽喉肿痛；肝郁气滞</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>发散风热中<b>最上浮</b>，主风热外感头目咽证，兼疏肝。</div>
+  </div>
+
+  <!-- 2 风热咽痛 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>风热咽痛 · 解毒 / 息风</h3>
+      <span class="hint">牛蒡子解毒滑肠，蝉蜕音哑息风</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>牛蒡子<span class="tag">解毒滑肠</span></h4>
+        <p class="line"><span class="k g">功效</span>疏散风热，宣肺祛痰，利咽透疹，解毒散结</p>
+        <p class="line"><span class="k r">特长</span>风热咽痛红肿，宣肺祛痰，解毒散结，<b>性寒滑肠</b></p>
+        <p class="line"><span class="k b">主证</span>风热咽痛红肿；咳嗽痰多；疮疡肿毒；便秘</p>
+      </article>
+      <article class="card">
+        <h4>蝉蜕<span class="tag">息风止痉</span></h4>
+        <p class="line"><span class="k g">功效</span>疏散风热，利咽开音，透疹，明目退翳，息风止痉</p>
+        <p class="line"><span class="k r">特长</span>风热咽痛音哑，透疹，<b>独有息风止痉、明目退翳</b></p>
+        <p class="line"><span class="k b">主证</span>风热咽痛音哑；麻疹不透；小儿惊风抽搐；目赤翳障</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>牛蒡子<b>咽痛红肿+解毒散结+滑肠</b>，主咽痛、疮毒、便秘；蝉蜕<b>咽痛音哑+息风止痉+明目退翳</b>，主音哑、抽搐、目翳。</div>
+  </div>
+
+  <!-- 3 风热燥咳 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>风热燥咳 · 清肺润燥</h3>
+      <span class="hint">兼清肝明目</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>桑叶<span class="tag">润燥</span></h4>
+        <p class="line"><span class="k g">功效</span>疏散风热，清肺润燥，清肝明目</p>
+        <p class="line"><span class="k r">特长</span>风热伴<b>燥热干咳</b>，清肺润燥、清肝明目</p>
+        <p class="line"><span class="k b">主证</span>风热燥咳；肝热目赤</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>发散风热中唯一<b>兼润燥</b>，主风热伴燥热干咳。</div>
+  </div>
+
+  <!-- 4 辛凉轻清 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">4</span><h3>辛凉轻清 · 清头目平肝</h3>
+      <span class="hint">善止眩晕</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>菊花<span class="tag">平肝止眩</span></h4>
+        <p class="line"><span class="k g">功效</span>疏散风热，平抑肝阳，清肝明目，清热解毒</p>
+        <p class="line"><span class="k r">特长</span>辛凉轻清，主治风热外感，<b>善清头目、平肝止眩晕</b></p>
+        <p class="line"><span class="k b">主证</span>风热外感；头痛眩晕；目赤肿痛；疮痈肿毒</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>发散风热中<b>平肝止眩晕</b>最突出，主风热外感兼头目眩晕。</div>
+  </div>
+</section>
+
+</main>
+
+<div class="site-mount" data-page="解表药.html"></div>
+
+<footer>解表药 · 三级分类版 · 先记子类归属，再记组内差异 · 可直接 Ctrl/⌘+P 存为 PDF</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>化痰止咳平喘药 · 三级分类记忆导图</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f5f6f9; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e6e8ee;
+    --tan:#0e8f7e; --re:#2f6fd0; --chuan:#d05a1f;
+    --radius:14px;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(135deg,#1f2430 0%,#313a4d 60%,#3d4a63 100%);
+    color:#fff; padding:26px 20px 0; position:sticky; top:0; z-index:50;
+    box-shadow:0 2px 14px rgba(0,0,0,.12);
+  }
+  .head-inner{max-width:1200px;margin:0 auto}
+  h1{font-size:21px;letter-spacing:.5px;font-weight:700}
+  h1 span{font-weight:400;font-size:12.5px;color:#a9b4c7;margin-left:10px;letter-spacing:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 12px;font-size:12.5px;color:#c3cbd9}
+  .legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:1px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:12px}
+  nav a{
+    color:#dfe4ec;text-decoration:none;font-size:13.5px;padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.08);transition:.18s;white-space:nowrap;
+  }
+  nav a:hover{background:rgba(255,255,255,.2);color:#fff}
+  main{max-width:1200px;margin:0 auto;padding:26px 20px 70px}
+  section{scroll-margin-top:150px;margin-bottom:48px;--c:var(--tan)}
+  .g-re{--c:var(--re)} .g-chuan{--c:var(--chuan)}
+
+  .grp-title{
+    display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+    padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:12px;
+  }
+  .grp-title .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+  .grp-title small{font-weight:400;font-size:12.5px;color:var(--muted);margin-left:auto}
+
+  .axis{
+    background:#fff;border:1px dashed var(--c);border-radius:10px;padding:9px 14px;
+    font-size:12.8px;color:#404857;margin-bottom:18px;
+  }
+  .axis b{color:var(--c)}
+
+  .cluster{
+    border-radius:16px;padding:13px 14px 15px;margin-bottom:16px;
+    background:color-mix(in srgb, var(--c) 5%, #fff);
+    border:1px solid color-mix(in srgb, var(--c) 18%, #fff);
+    border-left:5px solid var(--c);
+  }
+  .cluster-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .cluster-head .num{
+    flex:none;width:24px;height:24px;border-radius:8px;background:var(--c);color:#fff;
+    display:grid;place-items:center;font-size:12px;font-weight:700;
+  }
+  .cluster-head h3{font-size:15.5px;font-weight:700;letter-spacing:.2px}
+  .cluster-head .hint{
+    font-size:12px;color:var(--muted);margin-left:auto;text-align:right;
+    background:rgba(255,255,255,.75);padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:11px}
+  .card{
+    background:var(--card);border-radius:12px;padding:12px 14px 13px;
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(0,0,0,.035);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.09)}
+  .card h4{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .tag{
+    font-size:11px;font-weight:500;padding:1px 8px;border-radius:999px;
+    background:color-mix(in srgb, var(--c) 12%, #fff);
+    color:var(--c);border:1px solid color-mix(in srgb, var(--c) 30%, #fff);
+    white-space:nowrap;
+  }
+  .line{font-size:12.8px;color:#3d4553;margin-top:4px;display:flex;gap:7px;align-items:flex-start}
+  .k{
+    flex:none;font-size:10.5px;line-height:1.75;padding:0 6px;border-radius:5px;
+    background:#eef0f4;color:#5a6474;margin-top:2px;
+  }
+  .k.g{background:#e7f5ee;color:#1f7d56}
+  .k.r{background:#fdeee9;color:#c04a22}
+  .k.b{background:#eaf1fc;color:#2b5fa8}
+  .k.p{background:#f2ecfd;color:#6a3fc0}
+  .note{color:#b3401f;font-weight:600}
+
+  .vs{
+    margin-top:10px;font-size:12.5px;color:#4b5464;line-height:1.7;
+    background:rgba(255,255,255,.8);border-left:3px solid var(--c);
+    padding:7px 11px;border-radius:8px;
+  }
+  .vs b{color:var(--c)}
+
+  footer{text-align:center;font-size:12.5px;color:#9aa3b2;padding:0 20px 40px}
+
+  @media print{
+    header{position:static;background:#fff;color:#000;box-shadow:none;border-bottom:1px solid #ccc}
+    h1 span,.legend,nav{display:none}
+    body{background:#fff}
+    .card,.cluster{break-inside:avoid;box-shadow:none}
+    section{margin-bottom:22px}
+  }
+  @media (max-width:520px){
+    h1{font-size:17px} h1 span{display:block;margin:4px 0 0}
+    .grid{grid-template-columns:1fr}
+    .cluster-head .hint{margin-left:0;width:100%;text-align:left}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="site-page" data-page="止咳化痰药.html">
+
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="解表药.html" data-page="解表药.html">解表</a>
+      <a href="清热药.html" data-page="清热药.html">清热</a>
+      <a href="攻下药.html" data-page="攻下药.html">泻下</a>
+      <a href="利水渗湿药.html" data-page="利水渗湿药.html">祛湿</a>
+      <a href="温里药.html" data-page="温里药.html">温里</a>
+      <a href="止咳化痰药.html" data-page="止咳化痰药.html">化痰</a>
+      <a href="行气消食药.html" data-page="行气消食药.html">理气</a>
+      <a href="活血止血药.html" data-page="活血止血药.html">活血</a>
+      <a href="补虚益气药.html" data-page="补虚益气药.html">补虚</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+<header>
+  <div class="head-inner">
+    <h1>化痰止咳平喘药 · 三级分类记忆导图<span>大类 → 子类 → 药｜先记“谁跟谁一类”，再记“类内差在哪”</span></h1>
+    <div class="legend">
+      <span><b style="background:#eef0f4"></b>共同功效</span>
+      <span><b style="background:#fdeee9"></b>差异特长</span>
+      <span><b style="background:#eaf1fc"></b>主证关键词</span>
+      <span><b style="background:#f2ecfd"></b>注意 / 药力峻缓</span>
+    </div>
+    <nav>
+      <a href="#tan">温化寒痰药</a>
+      <a href="#re">清热化痰药</a>
+      <a href="#chuan">止咳平喘药</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 温化寒痰药 ==================== -->
+<section id="tan" class="g-tan">
+  <h2 class="grp-title"><span class="dot"></span>温化寒痰药<small>5 味 · 4 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>半夏＝燥湿降逆；旋覆花·白前＝降气消痰；白芥子＝温肺豁痰走皮里膜外；石菖蒲＝开窍豁痰。<b>记忆轴：</b>燥湿力半夏最强，降气看旋覆花白前，走窜看白芥子，开窍看石菖蒲。
+  </div>
+
+  <!-- 1 燥湿化痰·降逆止呕 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>燥湿化痰 · 降逆止呕</h3>
+      <span class="hint">湿痰寒痰第一药</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>半夏<span class="tag">燥湿降逆</span></h4>
+        <p class="line"><span class="k g">功效</span>燥湿化痰，降逆止呕，消痞散结</p>
+        <p class="line"><span class="k r">特长</span>燥湿化痰力强，降逆止呕、消痞散结</p>
+        <p class="line"><span class="k b">主证</span>湿痰寒痰咳喘；胃中水饮呕吐；心下痞、梅核气</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>温化寒痰中<b>燥湿力最强</b>，且一身兼“化痰+止呕+消痞”三能，主湿痰寒痰、呕吐、痞证梅核气。</div>
+  </div>
+
+  <!-- 2 降气消痰 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>降气消痰 · 降肺胃之气</h3>
+      <span class="hint">旋覆花兼行水止呕，白前专降肺气</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>旋覆花<span class="tag">行水止呕</span></h4>
+        <p class="line"><span class="k g">功效</span>降气消痰，行水止呕</p>
+        <p class="line"><span class="k r">特长</span>降气消痰兼行水止呕</p>
+        <p class="line"><span class="k b">主证</span>痰饮咳喘胸满；痰浊中阻；噫气、胃脘痞硬</p>
+      </article>
+      <article class="card">
+        <h4>白前<span class="tag">专降肺气</span></h4>
+        <p class="line"><span class="k g">功效</span>降气，消痰止咳</p>
+        <p class="line"><span class="k r">特长</span>专降肺气、消痰止咳</p>
+        <p class="line"><span class="k b">主证</span>肺气壅实；新久寒热咳嗽痰多；单纯气道痰堵</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>旋覆花<b>兼行水止呕</b>，主噫气、胃脘痞硬、痰饮胸满；白前<b>专降肺气消痰止咳</b>，主新久咳嗽痰多、气道痰堵。</div>
+  </div>
+
+  <!-- 3 温肺豁痰·散结通络 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>温肺豁痰 · 散结通络</h3>
+      <span class="hint">善走皮里膜外</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>白芥子<span class="tag">走窜散结</span></h4>
+        <p class="line"><span class="k g">功效</span>温肺豁痰利气，散结通络止痛</p>
+        <p class="line"><span class="k r">特长</span>温肺豁痰，善走皮里膜外，散结通络止痛</p>
+        <p class="line"><span class="k b">主证</span>寒痰冷哮；痰在皮里膜外；阴疽、关节冷痛麻木</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>温化寒痰中唯一<b>善走皮里膜外</b>，兼散结通络止痛，主寒痰冷哮、阴疽、关节冷痛麻木。</div>
+  </div>
+
+  <!-- 4 开窍豁痰·化湿开胃 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">4</span><h3>开窍豁痰 · 化湿开胃</h3>
+      <span class="hint">痰浊蒙窍首选</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>石菖蒲<span class="tag">开窍醒神</span></h4>
+        <p class="line"><span class="k g">功效</span>开窍豁痰，醒神益智，化湿开胃</p>
+        <p class="line"><span class="k r">特长</span>化痰兼开窍醒神、化湿开胃</p>
+        <p class="line"><span class="k b">主证</span>痰浊蒙窍神昏癫痫、健忘耳鸣耳聋；湿浊中阻脘痞纳呆、噤口痢</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>化痰药中唯一<b>开窍醒神</b>，主痰浊蒙窍、湿浊中阻；不是普通止咳化痰药。</div>
+  </div>
+</section>
+
+<!-- ==================== 清热化痰药 ==================== -->
+<section id="re" class="g-re">
+  <h2 class="grp-title"><span class="dot"></span>清热化痰药<small>7 味 · 5 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>川贝母·瓜蒌＝清润散结；竹茹＝除烦止呕；前胡·桔梗＝一降一宣；胖大海＝利咽开音；海藻＝软坚利水。
+  </div>
+
+  <!-- 1 清润化痰·散结消痈 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>清润化痰 · 散结消痈</h3>
+      <span class="hint">川贝母偏润肺止咳，瓜蒌偏宽胸润肠</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>川贝母<span class="tag">润肺散结</span></h4>
+        <p class="line"><span class="k g">功效</span>清热润肺，化痰止咳，散结消痈</p>
+        <p class="line"><span class="k r">特长</span>偏润肺止咳、散结消痈</p>
+        <p class="line"><span class="k b">主证</span>肺热燥咳、阴虚劳嗽干咳少痰；痰火郁结瘰疬；乳痈、肺痈</p>
+      </article>
+      <article class="card">
+        <h4>瓜蒌<span class="tag">宽胸润肠</span></h4>
+        <p class="line"><span class="k g">功效</span>清热涤痰，宽胸散结，润燥滑肠</p>
+        <p class="line"><span class="k r">特长</span>偏宽胸散结、润燥滑肠</p>
+        <p class="line"><span class="k b">主证</span>痰热肺热燥咳；胸痹结胸；肺痈肠痈乳痈；肠燥便秘</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>川贝母<b>润肺止咳、散结消痈</b>，主燥咳劳嗽、瘰疬痈；瓜蒌<b>宽胸散结、润肠通便</b>，主胸痹结胸、肠燥便秘。</div>
+  </div>
+
+  <!-- 2 清热化痰·除烦止呕 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>清热化痰 · 除烦止呕</h3>
+      <span class="hint">胆胃痰火 + 胃热呕吐</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>竹茹<span class="tag">除烦止呕</span></h4>
+        <p class="line"><span class="k g">功效</span>清热化痰，除烦止呕</p>
+        <p class="line"><span class="k r">特长</span>清热化痰兼除烦止呕，兼凉血</p>
+        <p class="line"><span class="k b">主证</span>痰热咳嗽；胆胃痰火心烦失眠；胃热呕吐、妊娠恶阻；血热出血</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>清热化痰中唯一<b>除烦止呕</b>，主胆胃痰火心烦、胃热呕吐、妊娠恶阻。</div>
+  </div>
+
+  <!-- 3 宣降肺气·化痰 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>宣降肺气 · 化痰</h3>
+      <span class="hint">前胡降，桔梗宣</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>前胡<span class="tag">降气散风</span></h4>
+        <p class="line"><span class="k g">功效</span>降气化痰，散风清热</p>
+        <p class="line"><span class="k r">特长</span>偏降气 + 散风清热</p>
+        <p class="line"><span class="k b">主证</span>痰热壅肺、风热郁肺；咳喘胸满、咯痰黄稠</p>
+      </article>
+      <article class="card">
+        <h4>桔梗<span class="tag">宣肺利咽</span></h4>
+        <p class="line"><span class="k g">功效</span>宣肺，祛痰，利咽，排脓</p>
+        <p class="line"><span class="k r">特长</span>偏宣肺 + 利咽排脓，能载药上浮</p>
+        <p class="line"><span class="k b">主证</span>咳嗽痰多胸闷不畅；咽痛失音；肺痈吐脓；载药上浮</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>前胡<b>降气+散风清热</b>，主风热痰热咳喘、咯痰黄稠；桔梗<b>宣肺+利咽排脓</b>，主咽痛失音、肺痈，能载药上浮。</div>
+  </div>
+
+  <!-- 4 利咽开音·润肠 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">4</span><h3>利咽开音 · 润肠通便</h3>
+      <span class="hint">肺热声哑首选</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>胖大海<span class="tag">利咽开音</span></h4>
+        <p class="line"><span class="k g">功效</span>清热润肺，利咽开音，润肠通便</p>
+        <p class="line"><span class="k r">特长</span>清热润肺兼利咽开音、润肠通便</p>
+        <p class="line"><span class="k b">主证</span>肺热声哑、咽喉干痛干咳；燥热便秘伴头面火热</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>清热化痰中唯一以<b>利咽开音</b>为特长，主肺热声哑、咽喉干痛，兼润肠。</div>
+  </div>
+
+  <!-- 5 消痰软坚·利水 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">5</span><h3>消痰软坚 · 利水消肿</h3>
+      <span class="hint">瘿瘤瘰疬专药</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>海藻<span class="tag">软坚利水</span></h4>
+        <p class="line"><span class="k g">功效</span>消痰软坚散结，利水消肿</p>
+        <p class="line"><span class="k r">特长</span>消痰软坚散结，兼利水消肿</p>
+        <p class="line"><span class="k b">主证</span>瘿瘤瘰疬、睾丸肿痛；痰饮水肿小便不利</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>清热化痰中唯一<b>软坚散结</b>，主瘿瘤瘰疬、睾丸肿痛，兼利水消肿。</div>
+  </div>
+</section>
+
+<!-- ==================== 止咳平喘药 ==================== -->
+<section id="chuan" class="g-chuan">
+  <h2 class="grp-title"><span class="dot"></span>止咳平喘药<small>8 味 · 5 个子类</small></h2>
+  <div class="axis">
+    <b>三轴记忆：</b>止咳（百部·紫菀·款冬花·枇杷叶）｜化痰（紫苏子·紫菀）｜平喘（苦杏仁·桑白皮·葶苈子）。<b>一句话：</b>肺气上逆选杏仁苏子，肺热痰水选桑白葶苈，肺燥选百部，肺郁选紫菀冬花，肺热咳选枇杷叶。
+  </div>
+
+  <!-- 1 降气平喘·肺气上逆 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>降气平喘 · 肺气上逆</h3>
+      <span class="hint">苦杏仁平喘最强，紫苏子化痰强</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>苦杏仁<span class="tag">平喘最强</span></h4>
+        <p class="line"><span class="k g">功效</span>降气平喘，止咳，润肠</p>
+        <p class="line"><span class="k r">特长</span>降气平喘力最强，<b>化痰弱</b></p>
+        <p class="line"><span class="k b">主证</span>肺气上逆，咳伴气喘</p>
+      </article>
+      <article class="card">
+        <h4>紫苏子<span class="tag">化痰强</span></h4>
+        <p class="line"><span class="k g">功效</span>降气化痰，止咳平喘，润肠</p>
+        <p class="line"><span class="k r">特长</span><b>化痰强</b>，兼降气平喘</p>
+        <p class="line"><span class="k b">主证</span>肺气上逆 + 痰多，咳 + 喘</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>苦杏仁<b>平喘最强、化痰弱</b>，喘重痰少选；紫苏子<b>化痰强、兼平喘</b>，痰多咳喘选。</div>
+  </div>
+
+  <!-- 2 泻肺平喘·肺热/痰水壅肺 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>泻肺平喘 · 肺热 / 痰水壅肺</h3>
+      <span class="hint">桑白皮清缓，葶苈子逐水峻猛</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>桑白皮<span class="tag">清肺利水</span></h4>
+        <p class="line"><span class="k g">功效</span>泻肺清热平喘，兼利水消肿</p>
+        <p class="line"><span class="k r">特长</span>泻肺清热平喘，利水之力缓</p>
+        <p class="line"><span class="k b">主证</span>肺热壅肺，<b>喘重于咳</b></p>
+      </article>
+      <article class="card">
+        <h4>葶苈子<span class="tag">逐水峻猛</span></h4>
+        <p class="line"><span class="k g">功效</span>泻肺逐水平喘，利水消肿</p>
+        <p class="line"><span class="k r">特长</span>泻肺逐水平喘，<b>利水之力峻猛</b></p>
+        <p class="line"><span class="k b">主证</span>痰水壅肺，喘急不能平卧</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>桑白皮<b>偏清肺热、利水缓</b>，主肺热喘咳；葶苈子<b>偏逐痰水、利水峻猛</b>，主喘急不能平卧。</div>
+  </div>
+
+  <!-- 3 润肺止咳·杀虫 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>润肺止咳 · 杀虫</h3>
+      <span class="hint">几乎不化痰、无平喘</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>百部<span class="tag">润肺杀虫</span></h4>
+        <p class="line"><span class="k g">功效</span>润肺止咳，杀虫</p>
+        <p class="line"><span class="k r">特长</span>润肺止咳，<b>几乎不化痰、无平喘，独有杀虫</b></p>
+        <p class="line"><span class="k b">主证</span>肺燥，干咳少痰久咳、顿咳</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>止咳平喘中唯一<b>润肺+杀虫</b>，不化痰不平喘，主肺燥干咳、久咳顿咳。</div>
+  </div>
+
+  <!-- 4 化痰止咳·肺郁 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">4</span><h3>化痰止咳 · 肺郁</h3>
+      <span class="hint">紫菀化痰优，款冬花止咳优</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>紫菀<span class="tag">化痰优</span></h4>
+        <p class="line"><span class="k g">功效</span>化痰止咳，润肺下气</p>
+        <p class="line"><span class="k r">特长</span><b>化痰优，止咳次之，平喘弱</b></p>
+        <p class="line"><span class="k b">主证</span>肺郁有痰，痰黏难咳出</p>
+      </article>
+      <article class="card">
+        <h4>款冬花<span class="tag">止咳优</span></h4>
+        <p class="line"><span class="k g">功效</span>止咳化痰，润肺下气</p>
+        <p class="line"><span class="k r">特长</span><b>止咳优，化痰次之，平喘弱</b></p>
+        <p class="line"><span class="k b">主证</span>肺郁，各类咳嗽</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>紫菀<b>化痰优</b>，痰黏难咳出选；款冬花<b>止咳优</b>，各类咳嗽通用。二者常相须。</div>
+  </div>
+
+  <!-- 5 清肺止咳·降胃止呕 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">5</span><h3>清肺止咳 · 降胃止呕</h3>
+      <span class="hint">咳嗽为主，气喘轻</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>枇杷叶<span class="tag">清肺降胃</span></h4>
+        <p class="line"><span class="k g">功效</span>清肺止咳，兼降胃止呕</p>
+        <p class="line"><span class="k r">特长</span>清肺止咳，兼降胃止呕</p>
+        <p class="line"><span class="k b">主证</span>肺热肺气上逆，<b>咳嗽为主、气喘轻</b></p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>止咳平喘中唯一<b>兼降胃止呕</b>，主肺热咳嗽为主、气喘轻。</div>
+  </div>
+</section>
+
+</main>
+
+<div class="site-mount" data-page="止咳化痰药.html"></div>
+
+<footer>化痰止咳平喘药 · 三级分类版 · 先记子类归属，再记组内差异 · 可直接 Ctrl/⌘+P 存为 PDF</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

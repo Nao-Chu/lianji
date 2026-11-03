@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中药横向对比 · 三级分类记忆导图</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f5f6f9; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e6e8ee;
+    --qi:#1f9d6b; --yang:#e0592a; --xue:#c9366b; --yin:#2f6fd0; --shou:#7b4bd6;
+    --radius:14px;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  /* ---------- 顶部 ---------- */
+  header{
+    background:linear-gradient(135deg,#1f2430 0%,#313a4d 60%,#3d4a63 100%);
+    color:#fff; padding:26px 20px 0; position:sticky; top:0; z-index:50;
+    box-shadow:0 2px 14px rgba(0,0,0,.12);
+  }
+  .head-inner{max-width:1200px;margin:0 auto}
+  h1{font-size:21px;letter-spacing:.5px;font-weight:700}
+  h1 span{font-weight:400;font-size:12.5px;color:#a9b4c7;margin-left:10px;letter-spacing:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 12px;font-size:12.5px;color:#c3cbd9}
+  .legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:1px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:12px}
+  nav a{
+    color:#dfe4ec;text-decoration:none;font-size:13.5px;padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.08);transition:.18s;white-space:nowrap;
+  }
+  nav a:hover{background:rgba(255,255,255,.2);color:#fff}
+  /* ---------- 主体 ---------- */
+  main{max-width:1200px;margin:0 auto;padding:26px 20px 70px}
+  section{scroll-margin-top:150px;margin-bottom:48px;--c:var(--qi)}
+  .g-yang{--c:var(--yang)} .g-xue{--c:var(--xue)} .g-yin{--c:var(--yin)} .g-shou{--c:var(--shou)}
+
+  .grp-title{
+    display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+    padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:12px;
+  }
+  .grp-title .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+  .grp-title small{font-weight:400;font-size:12.5px;color:var(--muted);margin-left:auto}
+
+  /* 大类总轴 */
+  .axis{
+    background:#fff;border:1px dashed var(--c);border-radius:10px;padding:9px 14px;
+    font-size:12.8px;color:#404857;margin-bottom:18px;
+  }
+  .axis b{color:var(--c)}
+
+  /* ---------- 子类分组块（核心） ---------- */
+  .cluster{
+    border-radius:16px;padding:13px 14px 15px;margin-bottom:16px;
+    background:color-mix(in srgb, var(--c) 5%, #fff);
+    border:1px solid color-mix(in srgb, var(--c) 18%, #fff);
+    border-left:5px solid var(--c);
+  }
+  .cluster-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .cluster-head .num{
+    flex:none;width:24px;height:24px;border-radius:8px;background:var(--c);color:#fff;
+    display:grid;place-items:center;font-size:12px;font-weight:700;
+  }
+  .cluster-head h3{font-size:15.5px;font-weight:700;letter-spacing:.2px}
+  .cluster-head .hint{
+    font-size:12px;color:var(--muted);margin-left:auto;text-align:right;
+    background:rgba(255,255,255,.75);padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:11px}
+  .card{
+    background:var(--card);border-radius:12px;padding:12px 14px 13px;
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(0,0,0,.035);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.09)}
+  .card h4{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .tag{
+    font-size:11px;font-weight:500;padding:1px 8px;border-radius:999px;
+    background:color-mix(in srgb, var(--c) 12%, #fff);
+    color:var(--c);border:1px solid color-mix(in srgb, var(--c) 30%, #fff);
+    white-space:nowrap;
+  }
+  .line{font-size:12.8px;color:#3d4553;margin-top:4px;display:flex;gap:7px;align-items:flex-start}
+  .k{
+    flex:none;font-size:10.5px;line-height:1.75;padding:0 6px;border-radius:5px;
+    background:#eef0f4;color:#5a6474;margin-top:2px;
+  }
+  .k.g{background:#e7f5ee;color:#1f7d56}
+  .k.r{background:#fdeee9;color:#c04a22}
+  .k.b{background:#eaf1fc;color:#2b5fa8}
+  .k.p{background:#f2ecfd;color:#6a3fc0}
+  .note{color:#b3401f;font-weight:600}
+
+  /* 组内对比条 */
+  .vs{
+    margin-top:10px;font-size:12.5px;color:#4b5464;line-height:1.7;
+    background:rgba(255,255,255,.8);border-left:3px solid var(--c);
+    padding:7px 11px;border-radius:8px;
+  }
+  .vs b{color:var(--c)}
+
+  footer{text-align:center;font-size:12.5px;color:#9aa3b2;padding:0 20px 40px}
+
+  @media print{
+    header{position:static;background:#fff;color:#000;box-shadow:none;border-bottom:1px solid #ccc}
+    h1 span,.legend,nav{display:none}
+    body{background:#fff}
+    .card,.cluster{break-inside:avoid;box-shadow:none}
+    section{margin-bottom:22px}
+  }
+  @media (max-width:520px){
+    h1{font-size:17px} h1 span{display:block;margin:4px 0 0}
+    .grid{grid-template-columns:1fr}
+    .cluster-head .hint{margin-left:0;width:100%;text-align:left}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="site-page" data-page="补虚益气药.html">
+
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="解表药.html" data-page="解表药.html">解表</a>
+      <a href="清热药.html" data-page="清热药.html">清热</a>
+      <a href="攻下药.html" data-page="攻下药.html">泻下</a>
+      <a href="利水渗湿药.html" data-page="利水渗湿药.html">祛湿</a>
+      <a href="温里药.html" data-page="温里药.html">温里</a>
+      <a href="止咳化痰药.html" data-page="止咳化痰药.html">化痰</a>
+      <a href="行气消食药.html" data-page="行气消食药.html">理气</a>
+      <a href="活血止血药.html" data-page="活血止血药.html">活血</a>
+      <a href="补虚益气药.html" data-page="补虚益气药.html">补虚</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+<header>
+  <div class="head-inner">
+    <h1>中药横向对比 · 三级分类记忆导图<span>大类 → 子类 → 药｜先记“谁跟谁一类”，再记“类内差在哪”</span></h1>
+    <div class="legend">
+      <span><b style="background:#eef0f4"></b>共同功效</span>
+      <span><b style="background:#fdeee9"></b>差异特长</span>
+      <span><b style="background:#eaf1fc"></b>主证关键词</span>
+      <span><b style="background:#f2ecfd"></b>注意 / 药力峻缓</span>
+    </div>
+    <nav>
+      <a href="#qi">补气药</a>
+      <a href="#yang">补阳药</a>
+      <a href="#xue">补血药</a>
+      <a href="#yin">补阴药</a>
+      <a href="#shou">收涩药</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 补气药 ==================== -->
+<section id="qi" class="g-qi">
+  <h2 class="grp-title"><span class="dot"></span>补气药<small>10 味 · 6 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>人参党参＝纯补气；西洋参太子参＝气阴双补；黄芪＝提气固表；白术白扁豆＝健脾祛湿；山药＝平补收涩；甘草大枣＝调和护中。
+  </div>
+
+  <!-- 1 纯补气 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>纯补气 · 补气力阶梯</h3>
+      <span class="hint">人参（峻）＞ 党参（缓）</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>人参<span class="tag">峻补固脱</span></h4>
+        <p class="line"><span class="k g">功效</span>大补元气，复脉固脱</p>
+        <p class="line"><span class="k r">特长</span>力能大补元气，可复脉固脱</p>
+        <p class="line"><span class="k b">主证</span>元气大亏气短脉微欲绝；重证脾肺气虚；津伤消渴、心悸失眠</p>
+      </article>
+      <article class="card">
+        <h4>党参<span class="tag">平和缓补</span></h4>
+        <p class="line"><span class="k g">功效</span>补中益气，生津养血</p>
+        <p class="line"><span class="k r">特长</span>药性平和，补气之力缓于人参</p>
+        <p class="line"><span class="k b">主证</span>轻中度脾肺气虚；气血不足；气津两伤乏力口渴</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>人参主“元气欲脱”的急重证，能复脉固脱；党参主“轻中度气虚”的平缓调补，可代人参而力缓。</div>
+  </div>
+
+  <!-- 2 益气养阴 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>益气养阴 · 气阴双补</h3>
+      <span class="hint">补气兼养阴，不温燥</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>西洋参<span class="tag">清补</span></h4>
+        <p class="line"><span class="k g">功效</span>补气养阴，清热生津</p>
+        <p class="line"><span class="k r">特长</span>补气兼清热，补而不温燥</p>
+        <p class="line"><span class="k b">主证</span>气阴两虚兼有虚火；虚热烦倦口干；肺热燥咳</p>
+      </article>
+      <article class="card">
+        <h4>太子参<span class="tag">最缓</span></h4>
+        <p class="line"><span class="k g">功效</span>益气健脾，生津润肺</p>
+        <p class="line"><span class="k r">特长</span>药力最缓，清补柔和不壅滞</p>
+        <p class="line"><span class="k b">主证</span>病后体虚、小儿轻浅气津不足；乏力微口干</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>有<b>虚火</b>用西洋参（补气兼清热）；<b>病后/小儿轻证</b>用太子参（力最缓、清补柔和）。</div>
+  </div>
+
+  <!-- 3 升阳固表 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>升阳固表 · 提气托毒</h3>
+      <span class="hint">升提、固表、托毒、利水</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>黄芪<span class="tag">升阳固表</span></h4>
+        <p class="line"><span class="k g">功效</span>补气升阳，固表止汗，利水消肿，托毒生肌</p>
+        <p class="line"><span class="k r">特长</span>善升阳固表，托毒利水</p>
+        <p class="line"><span class="k b">主证</span>气虚乏力中气下陷；自汗易感冒；气虚水肿、疮疡难敛</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补气药里唯一以“<b>升提+固表+托毒+利水</b>”为特长，主中气下陷、表虚自汗、水肿疮疡难敛。</div>
+  </div>
+
+  <!-- 4 健脾燥湿 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">4</span><h3>健脾燥湿 · 健脾兼祛湿</h3>
+      <span class="hint">白术（燥）＞ 白扁豆（轻）</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>白术<span class="tag">燥湿</span></h4>
+        <p class="line"><span class="k g">功效</span>健脾益气，燥湿利水，止汗安胎</p>
+        <p class="line"><span class="k r">特长</span>健脾燥湿利水，燥而能固</p>
+        <p class="line"><span class="k b">主证</span>脾虚食少便溏肢软；痰饮眩悸水肿尿少；气虚自汗、胎动不安</p>
+      </article>
+      <article class="card">
+        <h4>白扁豆<span class="tag">轻化湿</span></h4>
+        <p class="line"><span class="k g">功效</span>健脾化湿，和中消暑</p>
+        <p class="line"><span class="k r">特长</span>健脾轻化湿浊，兼能和中消暑</p>
+        <p class="line"><span class="k b">主证</span>脾虚湿滞便溏带下；暑湿伤中吐泻胸闷</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>白术<b>燥湿力强</b>，兼固表安胎，主脾虚湿盛、痰饮水肿；白扁豆<b>力轻平和</b>，兼解暑，主暑湿吐泻、便溏带下。</div>
+  </div>
+
+  <!-- 5 平补收涩 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">5</span><h3>平补肺脾肾 · 气阴同补兼收涩</h3>
+      <span class="hint">不燥不腻，补而能涩</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>山药<span class="tag">平补</span></h4>
+        <p class="line"><span class="k g">功效</span>补脾养胃，生津益肺，补肾涩精</p>
+        <p class="line"><span class="k r">特长</span>平补肺脾肾，气阴同补兼收涩</p>
+        <p class="line"><span class="k b">主证</span>脾虚久泻带下；肺虚久咳；肾虚遗精尿频消渴</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补气药中唯一<b>肺脾肾三脏同补</b>且<b>气阴双补兼收涩</b>，最平和，久服不燥不腻。</div>
+  </div>
+
+  <!-- 6 补中调和 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">6</span><h3>补中调和 · 护中顾脾胃</h3>
+      <span class="hint">补力弱，重在调和护中</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>甘草<span class="tag">调和诸药</span></h4>
+        <p class="line"><span class="k g">功效</span>补脾益气，缓急止痛，解毒，调和诸药</p>
+        <p class="line"><span class="k r">特长</span>补中缓急解毒，善调和诸药</p>
+        <p class="line"><span class="k b">主证</span>脾胃倦怠乏力；心悸脉结代；咳喘挛急疼痛疮毒</p>
+      </article>
+      <article class="card">
+        <h4>大枣<span class="tag">护中</span></h4>
+        <p class="line"><span class="k g">功效</span>补中益气，养血安神</p>
+        <p class="line"><span class="k r">特长</span>补气为主，养血安神偏弱，特长缓和药性、护中顾脾胃</p>
+        <p class="line"><span class="k b">主证</span>脾虚乏力食少便溏；血虚萎黄；妇人脏躁心神恍惚</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>甘草特长<b>调和诸药、缓急解毒</b>，主挛急疼痛、脉结代；大枣特长<b>护中、缓和药性</b>，兼弱养血安神，主脏躁、血虚萎黄。</div>
+  </div>
+</section>
+
+<!-- ==================== 补阳药 ==================== -->
+<section id="yang" class="g-yang">
+  <h2 class="grp-title"><span class="dot"></span>补阳药<small>11 味 · 6 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>淫羊藿巴戟天仙茅＝壮阳起痿；鹿茸＝峻补精血；肉苁蓉锁阳＝温润填精润肠；菟丝子沙苑子＝平补固精；杜仲续断＝腰与筋骨；补骨脂＝暖脾纳气。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">1</span><h3>温肾壮阳起痿</h3><span class="hint">温燥：仙茅(有毒) ＞ 淫羊藿 ＞ 巴戟天(温润)</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>淫羊藿<span class="tag">温燥壮阳</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾阳，强筋骨，祛风湿</p>
+        <p class="line"><span class="k r">特长</span>长于壮阳起痿，温燥善祛下焦风湿</p>
+        <p class="line"><span class="k b">主证</span>肾阳不足阳痿遗精腰酸；肾虚兼风湿痹痛筋骨拘挛</p>
+      </article>
+      <article class="card">
+        <h4>巴戟天<span class="tag">温润</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾阳，强筋骨，祛风湿</p>
+        <p class="line"><span class="k r">特长</span>药性温润，专于温养下焦胞宫</p>
+        <p class="line"><span class="k b">主证</span>肾阳不足阳痿早泄、宫寒少腹冷痛；肾虚腰膝冷痹</p>
+      </article>
+      <article class="card">
+        <h4>仙茅<span class="tag">峻热有毒</span></h4>
+        <p class="line"><span class="k g">功效</span>温肾壮阳，祛寒湿</p>
+        <p class="line"><span class="k r">特长</span>燥热峻烈且有毒</p>
+        <p class="line"><span class="k b">主证</span>肾阳衰微精冷阳痿；腰膝寒湿冷痛；脾阳虚冷泻</p>
+        <p class="line"><span class="k p">注意</span><span class="note">不宜长期久服</span></p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>淫羊藿<b>温燥兼祛风湿</b>；巴戟天<b>温润养胞宫</b>，宫寒冷痛优选；仙茅<b>燥热有毒</b>，只宜暂用。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">2</span><h3>峻补元阳精血</h3><span class="hint">固本培元，宜小量缓服</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>鹿茸<span class="tag">峻补精血</span></h4>
+        <p class="line"><span class="k g">功效</span>壮肾阳，益精血，强筋骨，调冲任，托疮毒</p>
+        <p class="line"><span class="k r">特长</span>大补元阳、峻补精血，重在固本培元；兴阳鼓动缓和，药力雄厚</p>
+        <p class="line"><span class="k b">主证</span>肾阳衰微精血大亏；畏寒早衰、小儿发育迟缓；冲任虚寒崩漏带下阴疽</p>
+        <p class="line"><span class="k p">注意</span>宜小量缓服</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补阳药中<b>药力最雄厚</b>，既补元阳又峻补精血，还能调冲任、托疮毒；特点“<b>兴阳鼓动缓和</b>”，不是速效壮阳，而是固本培元。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">3</span><h3>温润填精 · 润肠通便</h3><span class="hint">锁阳助阳更峻、润性稍弱</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>肉苁蓉<span class="tag">润补久服</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾阳，益精血，润肠通便</p>
+        <p class="line"><span class="k r">特长</span>温而不热、补而不峻，质润缓和适合久服</p>
+        <p class="line"><span class="k b">主证</span>肾阳不足精血亏虚阳痿腰膝酸软；老人阳虚肠燥便秘</p>
+      </article>
+      <article class="card">
+        <h4>锁阳<span class="tag">助阳更峻</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾阳，益精血，润肠通便</p>
+        <p class="line"><span class="k r">特长</span>功近肉苁蓉，助阳之力更峻，润性稍弱</p>
+        <p class="line"><span class="k b">主证</span>肾阳不足精血亏虚精冷阳痿痿弱；阳虚肠燥便秘</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>肉苁蓉<b>温而不热、补而不峻</b>，适合老人久服；锁阳<b>功近而助阳更峻、润性稍弱</b>。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">4</span><h3>平补肝肾 · 固精</h3><span class="hint">菟丝子补精为主，沙苑子专固精关</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>菟丝子<span class="tag">平补精</span></h4>
+        <p class="line"><span class="k g">功效</span>补益肝肾，固精缩尿，安胎，明目，止泻</p>
+        <p class="line"><span class="k r">特长</span>重在补养肾精，平补肝肾阴阳；肾精充则固摄自复，<b>固摄属附带，固力偏弱</b></p>
+        <p class="line"><span class="k b">主证</span>肝肾亏虚阳痿遗精遗尿；肾虚胎元不固胎动不安；目暗、脾肾久泻</p>
+      </article>
+      <article class="card">
+        <h4>沙苑子<span class="tag">专固精关</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾固精，养肝明目</p>
+        <p class="line"><span class="k r">特长</span>专长固摄精关为主，兼有微弱温养肝肾、养肝明目之功</p>
+        <p class="line"><span class="k b">主证</span>肾虚精关不固遗精滑泄白浊带下；肝肾不足目暗昏花</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>菟丝子<b>补精为主、固摄是附带</b>，主精亏兼胎动、目暗、久泻；沙苑子<b>专固精关</b>，主遗精滑泄白浊带下，兼养肝明目。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">5</span><h3>强腰安胎 · 续筋骨</h3><span class="hint">杜仲不通血脉，续断通血脉续骨</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>杜仲<span class="tag">专攻腰</span></h4>
+        <p class="line"><span class="k g">功效</span>补肝肾，强筋骨，安胎</p>
+        <p class="line"><span class="k r">特长</span>专攻腰疾，补而固胎；<b>不通血脉、不治跌打</b></p>
+        <p class="line"><span class="k b">主证</span>肝肾不足肾虚腰痛；冲任不固胎漏胎动</p>
+      </article>
+      <article class="card">
+        <h4>续断<span class="tag">续筋骨</span></h4>
+        <p class="line"><span class="k g">功效</span>补肝肾，强筋骨，续折伤，止崩漏</p>
+        <p class="line"><span class="k r">特长</span>补肝肾兼通血脉，擅长续筋接骨</p>
+        <p class="line"><span class="k b">主证</span>肝肾亏虚腰膝酸痛痹弱；胎漏胎动不安；跌仆筋伤骨折瘀血肿痛</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>杜仲<b>专攻腰痛、补而固胎</b>，不治跌打；续断<b>通血脉、续筋接骨</b>，跌仆骨折、痹痛优选。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">6</span><h3>温肾暖脾 · 纳气固下</h3><span class="hint">肾阳 + 脾阳 + 纳气</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>补骨脂<span class="tag">暖脾纳气</span></h4>
+        <p class="line"><span class="k g">功效</span>温肾助阳，纳气平喘，温脾止泻</p>
+        <p class="line"><span class="k r">特长</span>温肾兼暖脾、纳气固下；外用祛斑</p>
+        <p class="line"><span class="k b">主证</span>肾阳不足阳痿遗精尿频；肾不纳气虚喘；脾肾阳虚五更泄泻</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补阳药中唯一同时<b>温肾+暖脾+纳气</b>，主五更泄泻、肾不纳气虚喘。</div>
+  </div>
+</section>
+
+<!-- ==================== 补血药 ==================== -->
+<section id="xue" class="g-xue">
+  <h2 class="grp-title"><span class="dot"></span>补血药<small>6 味 · 5 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>当归＝补而兼行；阿胶＝补血止血润肺；龙眼肉＝补血安神；白芍＝养血敛阴；熟地黄/制何首乌＝填精补血。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">1</span><h3>补血兼行 · 活血调经</h3><span class="hint">补而不滞</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>当归<span class="tag">补而兼行</span></h4>
+        <p class="line"><span class="k g">功效</span>补血活血，调经止痛，润肠通便</p>
+        <p class="line"><span class="k r">特长</span>补血之中能活血调经止痛，补而兼行，尚可润肠</p>
+        <p class="line"><span class="k b">主证</span>血虚萎黄、月经不调、痛经；血虚肠燥便秘</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补血药中唯一<b>补而兼行</b>，既补血又活血调经，还能润肠。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">2</span><h3>补血滋阴 · 止血润肺</h3><span class="hint">质黏</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>阿胶<span class="tag">止血润肺</span></h4>
+        <p class="line"><span class="k g">功效</span>补血滋阴，润燥止血</p>
+        <p class="line"><span class="k r">特长</span>补血滋阴，擅长止血、润肺，质黏</p>
+        <p class="line"><span class="k b">主证</span>失血、燥咳优选</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补血药中<b>止血、润肺</b>最突出，失血与燥咳优选；质黏碍胃。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">3</span><h3>补血安神 · 专入心脾</h3><span class="hint">思虑劳伤</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>龙眼肉<span class="tag">安神</span></h4>
+        <p class="line"><span class="k g">功效</span>补益心脾，养血安神</p>
+        <p class="line"><span class="k r">特长</span>补血专入心脾，擅长安神</p>
+        <p class="line"><span class="k b">主证</span>思虑劳伤、失眠健忘</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补血药中<b>安神</b>最专，主思虑劳伤心脾、失眠健忘。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">4</span><h3>养血敛阴 · 柔肝缓急</h3><span class="hint">偏凉</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>白芍<span class="tag">敛阴柔肝</span></h4>
+        <p class="line"><span class="k g">功效</span>养血调经，敛阴止汗，柔肝止痛，平抑肝阳</p>
+        <p class="line"><span class="k r">特长</span>养血长于敛阴柔肝、缓急止痛，敛汗平肝，药性偏凉</p>
+        <p class="line"><span class="k b">主证</span>血虚肝郁胁痛、月经不调；挛急疼痛；自汗盗汗</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>补血药中唯一<b>敛阴柔肝、缓急止痛、平肝</b>，主挛急疼痛、肝阳、自汗盗汗。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">5</span><h3>填精补血 · 滋腻/乌须</h3><span class="hint">熟地滋腻，首乌乌须降脂</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>熟地黄<span class="tag">填精滋腻</span></h4>
+        <p class="line"><span class="k g">功效</span>补血滋阴，益精填髓</p>
+        <p class="line"><span class="k r">特长</span>补血重在填肝肾阴精、益精填髓，滋腻善治阴虚精亏</p>
+        <p class="line"><span class="k b">主证</span>血虚萎黄、肝肾阴虚、精亏髓少</p>
+      </article>
+      <article class="card">
+        <h4>制何首乌<span class="tag">乌须降脂</span></h4>
+        <p class="line"><span class="k g">功效</span>补肝肾，益精血，乌须发，强筋骨，化浊降脂</p>
+        <p class="line"><span class="k r">特长</span>补肝肾益精血，主打乌须发、化浊降脂</p>
+        <p class="line"><span class="k b">主证</span>须发早白、腰膝酸软、血脂异常</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>熟地黄<b>滋腻填髓</b>，主阴虚精亏；制何首乌<b>乌须发、化浊降脂</b>，主须发早白、血脂异常。</div>
+  </div>
+</section>
+
+<!-- ==================== 补阴药 ==================== -->
+<section id="yin" class="g-yin">
+  <h2 class="grp-title"><span class="dot"></span>补阴药<small>13 味 · 5 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>按“阴所在部位”分——肺阴（沙参/玉竹/百合/天冬）→ 胃阴（麦冬/石斛）→ 肝肾阴（枸杞/女贞/旱莲/桑椹）→ 潜阳（龟甲/鳖甲）。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">1</span><h3>肺阴为主 · 兼养胃阴</h3><span class="hint">清润强度：北沙参 ＞ 玉竹 ＞ 南沙参</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>北沙参<span class="tag">清润强</span></h4>
+        <p class="line"><span class="k g">功效</span>养阴清肺，益胃生津</p>
+        <p class="line"><span class="k r">特长</span>养肺阴为主兼养胃阴，清润之力强</p>
+        <p class="line"><span class="k b">主证</span>肺胃阴虚燥咳、胃阴灼痛口干</p>
+      </article>
+      <article class="card">
+        <h4>南沙参<span class="tag">益气化痰</span></h4>
+        <p class="line"><span class="k g">功效</span>养阴清肺，益胃生津，化痰益气</p>
+        <p class="line"><span class="k r">特长</span>养阴偏弱，兼益气化痰</p>
+        <p class="line"><span class="k b">主证</span>阴虚伴黏痰、气阴两虚烦热口干</p>
+      </article>
+      <article class="card">
+        <h4>玉竹<span class="tag">不恋邪</span></h4>
+        <p class="line"><span class="k g">功效</span>养阴润燥，生津止渴</p>
+        <p class="line"><span class="k r">特长</span>养肺阴为主兼养胃阴，药力缓和，滋而不恋邪</p>
+        <p class="line"><span class="k b">主证</span>热病后期阴伤而有余邪未尽尤为适合</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>北沙参<b>清润最强</b>，燥咳胃灼优选；南沙参<b>养阴弱但益气化痰</b>，阴虚夹黏痰用；玉竹<b>滋而不恋邪</b>，热病后期余邪未尽最宜。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">2</span><h3>肺阴兼心 / 肾</h3><span class="hint">百合入心，天冬入肾</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>百合<span class="tag">入心安神</span></h4>
+        <p class="line"><span class="k g">功效</span>养阴润肺，清心安神</p>
+        <p class="line"><span class="k r">特长</span>养肺阴为主兼入心</p>
+        <p class="line"><span class="k b">主证</span>阴虚劳嗽久咳痰血；百合病心神恍惚不安</p>
+      </article>
+      <article class="card">
+        <h4>天冬<span class="tag">退骨蒸</span></h4>
+        <p class="line"><span class="k g">功效</span>养阴润燥，清肺生津</p>
+        <p class="line"><span class="k r">特长</span>养肺阴为主，兼养胃肾之阴；苦寒沉降，清肺润燥</p>
+        <p class="line"><span class="k b">主证</span>长于退下焦肾阴亏虚之骨蒸潮热盗汗</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>百合<b>兼入心</b>，主百合病心神恍惚、劳嗽痰血；天冬<b>兼入肾、苦寒沉降</b>，主骨蒸潮热盗汗。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">3</span><h3>胃阴为主</h3><span class="hint">麦冬入心生津，石斛兼肾明目</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>麦冬<span class="tag">生津入心</span></h4>
+        <p class="line"><span class="k g">功效</span>养阴生津，润肺清心</p>
+        <p class="line"><span class="k r">特长</span>养胃阴为主兼润肺，又入心经；生津润燥力佳</p>
+        <p class="line"><span class="k b">主证</span>胃燥消渴、肠燥便秘；兼清心除烦安神</p>
+      </article>
+      <article class="card">
+        <h4>石斛<span class="tag">明目强骨</span></h4>
+        <p class="line"><span class="k g">功效</span>益胃生津，滋阴清热</p>
+        <p class="line"><span class="k r">特长</span>养胃阴为主兼滋肾，清补养胃</p>
+        <p class="line"><span class="k b">主证</span>胃虚嘈杂灼热、纳差口干；尚能明目、强筋骨</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>麦冬<b>生津力佳、兼入心</b>，主胃燥消渴、心烦；石斛<b>清补养胃、兼滋肾</b>，主胃虚嘈杂灼热，兼明目强骨。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">4</span><h3>肝肾阴为主</h3><span class="hint">枸杞填精，女贞凉，旱莲凉血，桑椹润肠</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>枸杞子<span class="tag">偏填精</span></h4>
+        <p class="line"><span class="k g">功效</span>滋补肝肾，益精明目</p>
+        <p class="line"><span class="k r">特长</span>性平偏填精</p>
+        <p class="line"><span class="k b">主证</span>肝肾阴虚、头晕目眩、视力减退、须发早白</p>
+      </article>
+      <article class="card">
+        <h4>女贞子<span class="tag">凉而不凉血</span></h4>
+        <p class="line"><span class="k g">功效</span>滋补肝肾，明目乌发</p>
+        <p class="line"><span class="k r">特长</span>凉而不凉血</p>
+        <p class="line"><span class="k b">主证</span>眩晕耳鸣、须发早白，伴虚热而无出血</p>
+      </article>
+      <article class="card">
+        <h4>墨旱莲<span class="tag">凉血止血</span></h4>
+        <p class="line"><span class="k g">功效</span>滋补肝肾，凉血止血</p>
+        <p class="line"><span class="k r">特长</span>兼凉血止血</p>
+        <p class="line"><span class="k b">主证</span>眩晕耳鸣、须发早白；阴虚血热出血（牙龈出血、尿血、崩漏）</p>
+      </article>
+      <article class="card">
+        <h4>桑椹<span class="tag">润肠</span></h4>
+        <p class="line"><span class="k g">功效</span>滋阴补血，生津润燥</p>
+        <p class="line"><span class="k r">特长</span>心肝肾同补</p>
+        <p class="line"><span class="k b">主证</span>肝肾阴虚须发早白；津伤口渴、心烦、肠燥便秘</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>枸杞子<b>偏填精</b>；女贞子<b>凉而不凉血</b>，有虚热无出血；墨旱莲<b>凉血止血</b>，有出血才选；桑椹<b>心肝肾同补兼润肠</b>，伴便秘心烦。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">5</span><h3>滋阴潜阳</h3><span class="hint">龟甲固经，鳖甲软坚</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>龟甲<span class="tag">固经养血</span></h4>
+        <p class="line"><span class="k g">功效</span>滋阴潜阳，益肾强骨，养血补心，固经止崩</p>
+        <p class="line"><span class="k r">特长</span>肝肾心经，滋阴潜阳、益肾强骨、养血补心、固经</p>
+        <p class="line"><span class="k b">主证</span>阴虚骨蒸盗汗、肝阳眩晕、筋骨痿软、健忘失眠、阴虚崩漏</p>
+      </article>
+      <article class="card">
+        <h4>鳖甲<span class="tag">软坚散结</span></h4>
+        <p class="line"><span class="k g">功效</span>滋阴潜阳，退热除蒸，软坚散结</p>
+        <p class="line"><span class="k r">特长</span>肝肾经，退热除蒸、软坚散结</p>
+        <p class="line"><span class="k b">主证</span>阴虚骨蒸劳热、阴虚风动抽搐、癥瘕积聚疟母</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>龟甲<b>偏固经、养血补心、强骨</b>，主崩漏、健忘失眠；鳖甲<b>偏退热除蒸、软坚散结</b>，主骨蒸、抽搐、癥瘕疟母。</div>
+  </div>
+</section>
+
+<!-- ==================== 收涩药 ==================== -->
+<section id="shou" class="g-shou">
+  <h2 class="grp-title"><span class="dot"></span>收涩药<small>14 味 · 4 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>按“敛哪里”分——敛汗（浮小麦/麻黄根）｜敛肺止咳（五味子/乌梅/诃子）｜涩肠止泻（肉豆蔻/赤石脂）｜固精缩尿止带（山茱萸/覆盆子/桑螵蛸/金樱子/海螵蛸/莲子/芡实）。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">1</span><h3>敛汗</h3><span class="hint">浮小麦兼清虚热，麻黄根纯敛</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>浮小麦<span class="tag">清虚热</span></h4>
+        <p class="line"><span class="k g">功效</span>敛汗，兼益气、清虚热</p>
+        <p class="line"><span class="k r">特长</span>适合出汗伴虚热</p>
+        <p class="line"><span class="k b">主证</span>心烦潮热、骨蒸</p>
+      </article>
+      <article class="card">
+        <h4>麻黄根<span class="tag">纯敛</span></h4>
+        <p class="line"><span class="k g">功效</span>单纯敛汗</p>
+        <p class="line"><span class="k r">特长</span>不补不清热</p>
+        <p class="line"><span class="k b">主证</span>仅汗出不止、无明显虚热</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>出汗<b>伴虚热心烦潮热</b>用浮小麦；<b>单纯汗出不止</b>用麻黄根。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">2</span><h3>敛肺止咳</h3><span class="hint">五味子入肺肾，乌梅重津，诃子利咽</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>五味子<span class="tag">肺肾</span></h4>
+        <p class="line"><span class="k g">功效</span>敛肺止咳，补肾宁心，涩肠，敛汗生津</p>
+        <p class="line"><span class="k r">特长</span>主战场在肺肾</p>
+        <p class="line"><span class="k b">主证</span>久咳虚喘、自汗盗汗优先</p>
+      </article>
+      <article class="card">
+        <h4>乌梅<span class="tag">生津</span></h4>
+        <p class="line"><span class="k g">功效</span>敛肺止咳，生津安蛔，涩肠止泻</p>
+        <p class="line"><span class="k r">特长</span>酸味重在生津</p>
+        <p class="line"><span class="k b">主证</span>久咳口干、蛔厥、久泻</p>
+      </article>
+      <article class="card">
+        <h4>诃子<span class="tag">利咽</span></h4>
+        <p class="line"><span class="k g">功效</span>敛肺涩肠，降火利咽</p>
+        <p class="line"><span class="k r">特长</span>专长久咳咽痛、失音</p>
+        <p class="line"><span class="k b">主证</span>久咳咽痛、失音</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>五味子<b>肺肾同敛</b>，久咳虚喘+汗出；乌梅<b>酸重生津</b>，口干+蛔厥+久泻；诃子<b>降火利咽</b>，久咳咽痛失音。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">3</span><h3>涩肠止泻</h3><span class="hint">肉豆蔻温中，赤石脂固脱</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>肉豆蔻<span class="tag">温中</span></h4>
+        <p class="line"><span class="k g">功效</span>温中行气，涩肠止泻</p>
+        <p class="line"><span class="k r">特长</span>偏温中行气</p>
+        <p class="line"><span class="k b">主证</span>脾胃虚寒泻、腹冷胀痛</p>
+      </article>
+      <article class="card">
+        <h4>赤石脂<span class="tag">固脱</span></h4>
+        <p class="line"><span class="k g">功效</span>涩肠固脱，止血生肌</p>
+        <p class="line"><span class="k r">特长</span>涩肠固脱力强</p>
+        <p class="line"><span class="k b">主证</span>泻痢滑脱、便血崩漏</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>肉豆蔻<b>温中行气</b>，主虚寒泻+腹冷胀痛；赤石脂<b>固脱力强兼止血</b>，主滑脱不禁、便血崩漏。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head"><span class="num">4</span><h3>固精缩尿止带</h3><span class="hint">固脱选山茱萸，纯收选金樱子，带下选海螵蛸/芡实</span></div>
+    <div class="grid">
+      <article class="card">
+        <h4>山茱萸<span class="tag">固脱最强</span></h4>
+        <p class="line"><span class="k g">功效</span>补肝肾阴阳，固脱</p>
+        <p class="line"><span class="k r">特长</span>固脱之力最强，补固并重</p>
+        <p class="line"><span class="k b">主证</span>遗精滑精早泄；兼崩漏、大汗元气欲脱、肾不纳气喘</p>
+      </article>
+      <article class="card">
+        <h4>覆盆子<span class="tag">明目</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾精、助阳，固精缩尿，养肝明目</p>
+        <p class="line"><span class="k r">特长</span>补涩缓和，专长养肝明目，无救脱之功</p>
+        <p class="line"><span class="k b">主证</span>遗精早泄、尿频，伴目昏</p>
+      </article>
+      <article class="card">
+        <h4>桑螵蛸<span class="tag">缩尿</span></h4>
+        <p class="line"><span class="k g">功效</span>补肾助阳，缩尿</p>
+        <p class="line"><span class="k r">特长</span>强项缩尿，补阴无力</p>
+        <p class="line"><span class="k b">主证</span>遗尿夜尿；遗精、白浊、阳痿</p>
+      </article>
+      <article class="card">
+        <h4>金樱子<span class="tag">纯收敛</span></h4>
+        <p class="line"><span class="k g">功效</span>固精、缩尿、止带、涩肠</p>
+        <p class="line"><span class="k r">特长</span>补益很弱，纯收敛</p>
+        <p class="line"><span class="k b">主证</span>下焦多处滑脱同见适合（遗精＋尿频＋久泻＋带下）</p>
+      </article>
+      <article class="card">
+        <h4>海螵蛸<span class="tag">止带止血</span></h4>
+        <p class="line"><span class="k g">功效</span>收敛止血，止带</p>
+        <p class="line"><span class="k r">特长</span>固精是附带，几乎无补益</p>
+        <p class="line"><span class="k b">主证</span>赤白带、崩漏出血、胃痛吞酸、溃疡湿疮</p>
+      </article>
+      <article class="card">
+        <h4>莲子<span class="tag">安神</span></h4>
+        <p class="line"><span class="k g">功效</span>脾肾同补，入心养心安神</p>
+        <p class="line"><span class="k r">特长</span>心肾不交首选</p>
+        <p class="line"><span class="k b">主证</span>遗精伴心烦失眠多梦；带下偏脾虚清稀</p>
+      </article>
+      <article class="card">
+        <h4>芡实<span class="tag">除湿止带</span></h4>
+        <p class="line"><span class="k g">功效</span>脾肾同补，除湿止带</p>
+        <p class="line"><span class="k r">特长</span>寒湿、湿热带下都可用；<b>无安神作用</b></p>
+        <p class="line"><span class="k b">主证</span>带下、遗精、久泻</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>要<b>救脱</b>选山茱萸；<b>遗精+目昏</b>选覆盆子；<b>遗尿夜尿</b>选桑螵蛸；<b>多处滑脱同见</b>选金樱子；<b>带下出血吞酸</b>选海螵蛸；<b>遗精+心烦失眠</b>选莲子；<b>带下为主</b>选芡实。</div>
+  </div>
+</section>
+
+</main>
+
+<div class="site-mount" data-page="补虚益气药.html"></div>
+
+<footer>三级分类版 · 先记子类归属，再记组内差异 · 可直接 Ctrl/⌘+P 存为 PDF</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>活血化瘀药 · 三级分类记忆导图</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f5f6f9; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e6e8ee;
+    --zhi:#c9366b; --tong:#d05a1f; --tiao:#1f9d6b; --po:#7b4bd6;
+    --radius:14px;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(135deg,#1f2430 0%,#313a4d 60%,#3d4a63 100%);
+    color:#fff; padding:26px 20px 0; position:sticky; top:0; z-index:50;
+    box-shadow:0 2px 14px rgba(0,0,0,.12);
+  }
+  .head-inner{max-width:1200px;margin:0 auto}
+  h1{font-size:21px;letter-spacing:.5px;font-weight:700}
+  h1 span{font-weight:400;font-size:12.5px;color:#a9b4c7;margin-left:10px;letter-spacing:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 12px;font-size:12.5px;color:#c3cbd9}
+  .legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:1px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:12px}
+  nav a{
+    color:#dfe4ec;text-decoration:none;font-size:13.5px;padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.08);transition:.18s;white-space:nowrap;
+  }
+  nav a:hover{background:rgba(255,255,255,.2);color:#fff}
+  main{max-width:1200px;margin:0 auto;padding:26px 20px 70px}
+  section{scroll-margin-top:150px;margin-bottom:48px;--c:var(--zhi)}
+  .g-tong{--c:var(--tong)} .g-tiao{--c:var(--tiao)} .g-po{--c:var(--po)}
+
+  .grp-title{
+    display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+    padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:12px;
+  }
+  .grp-title .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+  .grp-title small{font-weight:400;font-size:12.5px;color:var(--muted);margin-left:auto}
+
+  .axis{
+    background:#fff;border:1px dashed var(--c);border-radius:10px;padding:9px 14px;
+    font-size:12.8px;color:#404857;margin-bottom:18px;
+  }
+  .axis b{color:var(--c)}
+
+  .cluster{
+    border-radius:16px;padding:13px 14px 15px;margin-bottom:16px;
+    background:color-mix(in srgb, var(--c) 5%, #fff);
+    border:1px solid color-mix(in srgb, var(--c) 18%, #fff);
+    border-left:5px solid var(--c);
+  }
+  .cluster-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .cluster-head .num{
+    flex:none;width:24px;height:24px;border-radius:8px;background:var(--c);color:#fff;
+    display:grid;place-items:center;font-size:12px;font-weight:700;
+  }
+  .cluster-head h3{font-size:15.5px;font-weight:700;letter-spacing:.2px}
+  .cluster-head .hint{
+    font-size:12px;color:var(--muted);margin-left:auto;text-align:right;
+    background:rgba(255,255,255,.75);padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:11px}
+  .card{
+    background:var(--card);border-radius:12px;padding:12px 14px 13px;
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(0,0,0,.035);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.09)}
+  .card h4{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .tag{
+    font-size:11px;font-weight:500;padding:1px 8px;border-radius:999px;
+    background:color-mix(in srgb, var(--c) 12%, #fff);
+    color:var(--c);border:1px solid color-mix(in srgb, var(--c) 30%, #fff);
+    white-space:nowrap;
+  }
+  .line{font-size:12.8px;color:#3d4553;margin-top:4px;display:flex;gap:7px;align-items:flex-start}
+  .k{
+    flex:none;font-size:10.5px;line-height:1.75;padding:0 6px;border-radius:5px;
+    background:#eef0f4;color:#5a6474;margin-top:2px;
+  }
+  .k.g{background:#e7f5ee;color:#1f7d56}
+  .k.r{background:#fdeee9;color:#c04a22}
+  .k.b{background:#eaf1fc;color:#2b5fa8}
+  .k.p{background:#f2ecfd;color:#6a3fc0}
+  .note{color:#b3401f;font-weight:600}
+
+  .vs{
+    margin-top:10px;font-size:12.5px;color:#4b5464;line-height:1.7;
+    background:rgba(255,255,255,.8);border-left:3px solid var(--c);
+    padding:7px 11px;border-radius:8px;
+  }
+  .vs b{color:var(--c)}
+
+  footer{text-align:center;font-size:12.5px;color:#9aa3b2;padding:0 20px 40px}
+
+  @media print{
+    header{position:static;background:#fff;color:#000;box-shadow:none;border-bottom:1px solid #ccc}
+    h1 span,.legend,nav{display:none}
+    body{background:#fff}
+    .card,.cluster{break-inside:avoid;box-shadow:none}
+    section{margin-bottom:22px}
+  }
+  @media (max-width:520px){
+    h1{font-size:17px} h1 span{display:block;margin:4px 0 0}
+    .grid{grid-template-columns:1fr}
+    .cluster-head .hint{margin-left:0;width:100%;text-align:left}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="site-page" data-page="活血止血药.html">
+
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="解表药.html" data-page="解表药.html">解表</a>
+      <a href="清热药.html" data-page="清热药.html">清热</a>
+      <a href="攻下药.html" data-page="攻下药.html">泻下</a>
+      <a href="利水渗湿药.html" data-page="利水渗湿药.html">祛湿</a>
+      <a href="温里药.html" data-page="温里药.html">温里</a>
+      <a href="止咳化痰药.html" data-page="止咳化痰药.html">化痰</a>
+      <a href="行气消食药.html" data-page="行气消食药.html">理气</a>
+      <a href="活血止血药.html" data-page="活血止血药.html">活血</a>
+      <a href="补虚益气药.html" data-page="补虚益气药.html">补虚</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+<header>
+  <div class="head-inner">
+    <h1>活血化瘀药 · 三级分类记忆导图<span>大类 → 子类 → 药｜先记“谁跟谁一类”，再记“类内差在哪”</span></h1>
+    <div class="legend">
+      <span><b style="background:#eef0f4"></b>共同功效</span>
+      <span><b style="background:#fdeee9"></b>差异特长</span>
+      <span><b style="background:#eaf1fc"></b>主证关键词</span>
+      <span><b style="background:#f2ecfd"></b>注意 / 药力峻缓</span>
+    </div>
+    <nav>
+      <a href="#zhi">止血药</a>
+      <a href="#tong">活血止痛药</a>
+      <a href="#tiao">活血调经药</a>
+      <a href="#po">破血消癥药</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 止血药 ==================== -->
+<section id="zhi" class="g-zhi">
+  <h2 class="grp-title"><span class="dot"></span>止血药<small>5 味 · 2 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>化瘀止血（三七·茜草·蒲黄）——止血不留瘀，夹瘀出血首选；温经止血（艾叶·炮姜）——虚寒性出血。<b>记忆轴：</b>三七止痛兼补虚，茜草偏寒凉血，蒲黄平和通淋；艾叶走下焦外用止痒，炮姜温中焦力峻。
+  </div>
+
+  <!-- 1 化瘀止血 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>化瘀止血 · 止血不留瘀</h3>
+      <span class="hint">三七兼补虚止痛，茜草偏寒，蒲黄平和</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>三七<span class="tag">止痛兼补虚</span></h4>
+        <p class="line"><span class="k g">功效</span>散瘀止血，消肿定痛</p>
+        <p class="line"><span class="k r">特长</span>止痛力强，兼补虚</p>
+        <p class="line"><span class="k b">主证</span>外伤瘀肿、胸痹刺痛；各类夹瘀出血</p>
+      </article>
+      <article class="card">
+        <h4>茜草<span class="tag">凉血通经</span></h4>
+        <p class="line"><span class="k g">功效</span>凉血祛瘀止血，通经</p>
+        <p class="line"><span class="k r">特长</span>药性偏寒，凉血祛瘀止血兼通经</p>
+        <p class="line"><span class="k b">主证</span>血热出血；妇女经闭痛经；血瘀痹痛</p>
+      </article>
+      <article class="card">
+        <h4>蒲黄<span class="tag">平和通淋</span></h4>
+        <p class="line"><span class="k g">功效</span>止血化瘀，通淋化浊</p>
+        <p class="line"><span class="k r">特长</span>药性平和，兼通淋化浊</p>
+        <p class="line"><span class="k b">主证</span>心腹瘀痛；血淋尿血；高脂血症</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>三七<b>止痛力强、兼补虚</b>，外伤胸痹夹瘀出血选；茜草<b>偏寒凉血、通经</b>，血热出血、经闭选；蒲黄<b>平和兼通淋</b>，血淋尿血、心腹瘀痛选。</div>
+  </div>
+
+  <!-- 2 温经止血 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>温经止血 · 虚寒性出血</h3>
+      <span class="hint">艾叶走下焦兼外洗，炮姜温中焦力峻</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>艾叶<span class="tag">温经散寒</span></h4>
+        <p class="line"><span class="k g">功效</span>温经止血，散寒止痛，外用祛湿止痒</p>
+        <p class="line"><span class="k r">特长</span>温经止血、散寒止痛，外用祛湿止痒</p>
+        <p class="line"><span class="k b">主证</span>下焦虚寒崩漏、少腹冷痛、宫冷不孕；外洗湿疹阴痒</p>
+      </article>
+      <article class="card">
+        <h4>炮姜<span class="tag">温中力峻</span></h4>
+        <p class="line"><span class="k g">功效</span>温经止血，温中止痛</p>
+        <p class="line"><span class="k r">特长</span>温热力峻，偏温中焦</p>
+        <p class="line"><span class="k b">主证</span>脾阳不足之吐血便血；中焦虚寒脘腹冷痛吐泻</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>艾叶<b>走下焦、温经散寒</b>，主崩漏、少腹冷痛、宫冷不孕，外用止痒；炮姜<b>温中焦、力峻</b>，主脾阳不足吐血便血、脘腹冷痛吐泻。</div>
+  </div>
+</section>
+
+<!-- ==================== 活血止痛药 ==================== -->
+<section id="tong" class="g-tong">
+  <h2 class="grp-title"><span class="dot"></span>活血止痛药<small>4 味 · 2 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>气血同调（川芎·郁金）——血中气药，行气活血；破血行气/消肿生肌（姜黄·乳香）——力偏破血或偏行气舒筋。<b>记忆轴：</b>川芎上行头目，郁金清心利胆，姜黄肩臂破血，乳香消肿生肌。
+  </div>
+
+  <!-- 1 气血同调 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>气血同调 · 血中气药</h3>
+      <span class="hint">川芎上行头目，郁金清心利胆</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>川芎<span class="tag">血中气药</span></h4>
+        <p class="line"><span class="k g">功效</span>活血行气，祛风止痛</p>
+        <p class="line"><span class="k r">特长</span>血中气药，上行头目，祛风止痛</p>
+        <p class="line"><span class="k b">主证</span>血瘀气滞诸痛；各类头痛、风湿痹痛</p>
+        <p class="line"><span class="k p">注意</span><span class="note">阴虚阳亢头痛忌用</span></p>
+      </article>
+      <article class="card">
+        <h4>郁金<span class="tag">清心利胆</span></h4>
+        <p class="line"><span class="k g">功效</span>活血止痛，行气解郁，清心利胆</p>
+        <p class="line"><span class="k r">特长</span>行气解郁兼清心利胆</p>
+        <p class="line"><span class="k b">主证</span>气滞血瘀夹郁热；痰热神昏、血热出血、湿热黄疸</p>
+        <p class="line"><span class="k p">注意</span><span class="note">忌配丁香</span></p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>川芎<b>上行头目、祛风止痛</b>，主各类头痛、风湿痹痛；郁金<b>行气解郁、清心利胆</b>，主气滞血瘀夹郁热、痰热神昏、黄疸。</div>
+  </div>
+
+  <!-- 2 破血行气/消肿生肌 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>破血行气 · 消肿生肌</h3>
+      <span class="hint">姜黄力偏破血，乳香偏行气舒筋</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>姜黄<span class="tag">力偏破血</span></h4>
+        <p class="line"><span class="k g">功效</span>破血行气，通经止痛</p>
+        <p class="line"><span class="k r">特长</span>力偏破血，行气通经止痛</p>
+        <p class="line"><span class="k b">主证</span>寒凝血瘀诸痛；风湿肩臂痹痛</p>
+        <p class="line"><span class="k p">注意</span><span class="note">孕妇忌用</span></p>
+      </article>
+      <article class="card">
+        <h4>乳香<span class="tag">消肿生肌</span></h4>
+        <p class="line"><span class="k g">功效</span>活血止痛，消肿生肌</p>
+        <p class="line"><span class="k r">特长</span>偏行气舒筋，消肿生肌</p>
+        <p class="line"><span class="k b">主证</span>跌打瘀痛、筋脉拘挛；疮疡肿毒、溃久不敛</p>
+        <p class="line"><span class="k p">注意</span><span class="note">胃弱、孕妇慎用</span></p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>姜黄<b>力偏破血</b>，主寒凝血瘀、肩臂痹痛，孕妇忌用；乳香<b>偏行气舒筋、消肿生肌</b>，主跌打拘挛、疮疡不敛，胃弱孕妇慎用。</div>
+  </div>
+</section>
+
+<!-- ==================== 活血调经药 ==================== -->
+<section id="tiao" class="g-tiao">
+  <h2 class="grp-title"><span class="dot"></span>活血调经药<small>8 味 · 4 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>通经止痛（丹参·红花·桃仁）——妇科经产瘀证为主；补肝肾强筋骨（牛膝）｜补血舒筋（鸡血藤）；水瘀互结（益母草·泽兰）；下乳通淋（王不留行）。
+  </div>
+
+  <!-- 1 通经止痛 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>通经止痛 · 妇科经产瘀证</h3>
+      <span class="hint">丹参清心消痈，红花专入血分，桃仁润肠止咳</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>丹参<span class="tag">清心消痈</span></h4>
+        <p class="line"><span class="k g">功效</span>活血祛瘀，通经止痛，清心除烦，凉血消痈</p>
+        <p class="line"><span class="k r">特长</span>活血祛瘀兼清心除烦、凉血消痈</p>
+        <p class="line"><span class="k b">主证</span>胸痹心腹瘀痛；心烦失眠；疮痈肿毒</p>
+      </article>
+      <article class="card">
+        <h4>红花<span class="tag">专入血分</span></h4>
+        <p class="line"><span class="k g">功效</span>活血通经，散瘀止痛</p>
+        <p class="line"><span class="k r">特长</span>专入血分，活血通经散瘀止痛</p>
+        <p class="line"><span class="k b">主证</span>妇科经闭痛经产后瘀阻；胸痹跌打疮疡肿痛</p>
+      </article>
+      <article class="card">
+        <h4>桃仁<span class="tag">润肠止咳</span></h4>
+        <p class="line"><span class="k g">功效</span>活血祛瘀，润肠通便，止咳平喘</p>
+        <p class="line"><span class="k r">特长</span>活血祛瘀兼润肠通便、止咳平喘</p>
+        <p class="line"><span class="k b">主证</span>经闭癥瘕跌打瘀痛；肠燥便秘、咳嗽气喘</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>丹参<b>兼清心除烦、凉血消痈</b>，胸痹心烦疮痈选；红花<b>专入血分</b>，妇科经产瘀阻选；桃仁<b>兼润肠通便、止咳平喘</b>，瘀+便秘/咳喘选。</div>
+  </div>
+
+  <!-- 2 补肝肾/补血舒筋 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>补肝肾强筋骨 · 补血舒筋</h3>
+      <span class="hint">牛膝引血下行，鸡血藤活血补血</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>牛膝<span class="tag">引血下行</span></h4>
+        <p class="line"><span class="k g">功效</span>逐瘀通经，补肝肾强筋骨，利尿通淋，引血下行</p>
+        <p class="line"><span class="k r">特长</span>逐瘀通经兼补肝肾强筋骨，利尿通淋、引血下行</p>
+        <p class="line"><span class="k b">主证</span>经闭跌打腰膝痛；肝肾亏虚腰膝无力；淋证；上部火热血证</p>
+      </article>
+      <article class="card">
+        <h4>鸡血藤<span class="tag">活血补血</span></h4>
+        <p class="line"><span class="k g">功效</span>活血补血，调经止痛，舒筋活络</p>
+        <p class="line"><span class="k r">特长</span>活血兼补血，舒筋活络</p>
+        <p class="line"><span class="k b">主证</span>血虚血瘀月经不调经闭痛经；血虚萎黄；风湿痹痛肢体麻木瘫痪</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>牛膝<b>引血下行、补肝肾强筋骨、利尿通淋</b>，主腰膝痛、上部火热血证；鸡血藤<b>活血兼补血、舒筋活络</b>，主血虚血瘀月经不调、肢体麻木。</div>
+  </div>
+
+  <!-- 3 水瘀互结 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>水瘀互结 · 活血利水</h3>
+      <span class="hint">益母草力较强偏寒，泽兰性和缓不伤正</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>益母草<span class="tag">力较强</span></h4>
+        <p class="line"><span class="k g">功效</span>活血调经，利尿消肿，清热解毒</p>
+        <p class="line"><span class="k r">特长</span>活血力较强，性微寒，兼清热解毒</p>
+        <p class="line"><span class="k b">主证</span>妇科经产瘀证；水瘀互结水肿；疮痈肿毒</p>
+      </article>
+      <article class="card">
+        <h4>泽兰<span class="tag">和缓不伤正</span></h4>
+        <p class="line"><span class="k g">功效</span>活血调经，祛瘀消痈，利水消肿</p>
+        <p class="line"><span class="k r">特长</span>药性和缓，活血不伤正</p>
+        <p class="line"><span class="k b">主证</span>妇科血瘀经产诸证；水瘀互阻水肿；疮痈肿毒</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分（你笔记重点）：</b>二者都主<b>下焦胞宫疾患，瘀血为主伴水湿浮肿、小便不利、带下如水的水瘀互结证</b>。益母草<b>活血力较强、性微寒、兼清热解毒</b>；泽兰<b>药性和缓、活血不伤正</b>，体虚或需久服选泽兰。</div>
+  </div>
+
+  <!-- 4 下乳通淋 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">4</span><h3>下乳消肿 · 利尿通淋</h3>
+      <span class="hint">产后乳少、淋证涩痛</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>王不留行<span class="tag">下乳通淋</span></h4>
+        <p class="line"><span class="k g">功效</span>活血通经，下乳消肿，利尿通淋</p>
+        <p class="line"><span class="k r">特长</span>活血通经兼下乳消肿、利尿通淋</p>
+        <p class="line"><span class="k b">主证</span>血滞经闭痛经；产后乳少乳痈肿痛；小便淋沥涩痛</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>活血调经中唯一<b>下乳+通淋</b>双特长，主产后乳少乳痈、小便淋沥涩痛。</div>
+  </div>
+</section>
+
+<!-- ==================== 破血消癥药 ==================== -->
+<section id="po" class="g-po">
+  <h2 class="grp-title"><span class="dot"></span>破血消癥药<small>7 味 · 3 个子类</small></h2>
+  <div class="axis">
+    <b>一句话定位：</b>骨折瘀肿（土鳖虫·骨碎补）——攻 vs 攻补兼顾；破气破血（莪术·三棱）——气滞 vs 血块；峻猛破血（水蛭·虻虫·干漆）——持久 vs 迅猛 vs 兼杀虫。<b>注意：</b>本类药力峻猛，孕妇及体虚无瘀者慎用。
+  </div>
+
+  <!-- 1 骨折瘀肿 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>骨折瘀肿 · 攻 vs 攻补兼顾</h3>
+      <span class="hint">土鳖虫纯攻，骨碎补活血+补肾</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>土鳖虫<span class="tag">专攻破血</span></h4>
+        <p class="line"><span class="k g">功效</span>破血逐瘀，续筋接骨</p>
+        <p class="line"><span class="k r">特长</span>专攻破血，<b>无补益作用</b>；侧重瘀血阻滞</p>
+        <p class="line"><span class="k b">主证</span>骨折早期瘀血肿痛；破血消癥、通经；纯实证瘀血</p>
+      </article>
+      <article class="card">
+        <h4>骨碎补<span class="tag">攻补兼顾</span></h4>
+        <p class="line"><span class="k g">功效</span>活血续筋，补肾强骨</p>
+        <p class="line"><span class="k r">特长</span>活血+补肾，攻补兼顾；外用祛斑</p>
+        <p class="line"><span class="k b">主证</span>骨折中后期；筋骨损伤兼肾虚（腰痛、牙齿松动、耳鸣）</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>土鳖虫<b>纯攻破血、无补益</b>，骨折早期瘀肿、纯实证选；骨碎补<b>活血+补肾、攻补兼顾</b>，骨折中后期兼肾虚（腰痛、牙松、耳鸣）选。</div>
+  </div>
+
+  <!-- 2 破气破血 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>破气破血 · 气滞 vs 血块</h3>
+      <span class="hint">莪术破气为主，三棱破血为主</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>莪术<span class="tag">破气为主</span></h4>
+        <p class="line"><span class="k g">功效</span>破气行血，消积止痛</p>
+        <p class="line"><span class="k r">特长</span>破气为主，兼顾活血</p>
+        <p class="line"><span class="k b">主证</span>气滞胀痛、食积腹痛</p>
+      </article>
+      <article class="card">
+        <h4>三棱<span class="tag">破血为主</span></h4>
+        <p class="line"><span class="k g">功效</span>破血行气，消积止痛</p>
+        <p class="line"><span class="k r">特长</span>破血为主，兼顾行气</p>
+        <p class="line"><span class="k b">主证</span>瘀血结块重</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>莪术<b>破气为主</b>，气滞胀痛、食积腹痛选；三棱<b>破血为主</b>，瘀血结块重选。二者常相须。</div>
+  </div>
+
+  <!-- 3 峻猛破血 -->
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>峻猛破血 · 久瘀顽固癥块</h3>
+      <span class="hint">水蛭持久，虻虫迅猛，干漆兼杀虫</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>水蛭<span class="tag">最强持久</span></h4>
+        <p class="line"><span class="k g">功效</span>破血逐瘀</p>
+        <p class="line"><span class="k r">特长</span>破血之力最强，平和持久</p>
+        <p class="line"><span class="k b">主证</span>久瘀顽固癥块、中风瘀血</p>
+      </article>
+      <article class="card">
+        <h4>虻虫<span class="tag">迅猛峻猛</span></h4>
+        <p class="line"><span class="k g">功效</span>破血逐瘀</p>
+        <p class="line"><span class="k r">特长</span>破血迅猛，药力峻猛，快而猛</p>
+        <p class="line"><span class="k b">主证</span>偏治少腹蓄血</p>
+      </article>
+      <article class="card">
+        <h4>干漆<span class="tag">破瘀杀虫</span></h4>
+        <p class="line"><span class="k g">功效</span>破瘀通经，杀虫</p>
+        <p class="line"><span class="k r">特长</span>破瘀兼杀虫</p>
+        <p class="line"><span class="k b">主证</span>久瘀干血痨；虫积腹痛</p>
+        <p class="line"><span class="k p">注意</span><span class="note">漆过敏禁用</span></p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>水蛭<b>最强但平和持久</b>，久瘀顽固癥块、中风瘀血选；虻虫<b>迅猛峻猛</b>，少腹蓄血急证实证选；干漆<b>破瘀兼杀虫</b>，久瘀干血痨、虫积腹痛选，漆过敏禁用。</div>
+  </div>
+</section>
+
+</main>
+
+<div class="site-mount" data-page="活血止血药.html"></div>
+
+<footer>活血化瘀药 · 三级分类版 · 先记子类归属，再记组内差异 · 可直接 Ctrl/⌘+P 存为 PDF</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

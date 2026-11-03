@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>清热药 · 三级分类记忆导图</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#f5f6f9; --card:#fff; --ink:#1f2430; --muted:#6b7280; --line:#e6e8ee;
+    --qing:#0e7c8a;
+    --radius:14px;
+  }
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:var(--bg); color:var(--ink); line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  header{
+    background:linear-gradient(135deg,#1f2430 0%,#313a4d 60%,#3d4a63 100%);
+    color:#fff; padding:26px 20px 0; position:sticky; top:0; z-index:50;
+    box-shadow:0 2px 14px rgba(0,0,0,.12);
+  }
+  .head-inner{max-width:1200px;margin:0 auto}
+  h1{font-size:21px;letter-spacing:.5px;font-weight:700}
+  h1 span{font-weight:400;font-size:12.5px;color:#a9b4c7;margin-left:10px;letter-spacing:0}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;margin:10px 0 12px;font-size:12.5px;color:#c3cbd9}
+  .legend b{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:5px;vertical-align:1px}
+  nav{display:flex;gap:6px;flex-wrap:wrap;padding-bottom:12px}
+  nav a{
+    color:#dfe4ec;text-decoration:none;font-size:13.5px;padding:6px 14px;border-radius:999px;
+    background:rgba(255,255,255,.08);transition:.18s;white-space:nowrap;
+  }
+  nav a:hover{background:rgba(255,255,255,.2);color:#fff}
+  main{max-width:1200px;margin:0 auto;padding:26px 20px 70px}
+  section{scroll-margin-top:150px;margin-bottom:48px;--c:var(--qing)}
+
+  .grp-title{
+    display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;
+    padding-bottom:10px;border-bottom:2px solid var(--c);margin-bottom:12px;
+  }
+  .grp-title .dot{width:12px;height:12px;border-radius:50%;background:var(--c);flex:none}
+  .grp-title small{font-weight:400;font-size:12.5px;color:var(--muted);margin-left:auto}
+
+  .axis{
+    background:#fff;border:1px dashed var(--c);border-radius:10px;padding:9px 14px;
+    font-size:12.8px;color:#404857;margin-bottom:18px;
+  }
+  .axis b{color:var(--c)}
+
+  .cluster{
+    border-radius:16px;padding:13px 14px 15px;margin-bottom:16px;
+    background:color-mix(in srgb, var(--c) 5%, #fff);
+    border:1px solid color-mix(in srgb, var(--c) 18%, #fff);
+    border-left:5px solid var(--c);
+  }
+  .cluster-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .cluster-head .num{
+    flex:none;width:24px;height:24px;border-radius:8px;background:var(--c);color:#fff;
+    display:grid;place-items:center;font-size:12px;font-weight:700;
+  }
+  .cluster-head h3{font-size:15.5px;font-weight:700;letter-spacing:.2px}
+  .cluster-head .hint{
+    font-size:12px;color:var(--muted);margin-left:auto;text-align:right;
+    background:rgba(255,255,255,.75);padding:2px 9px;border-radius:999px;border:1px solid var(--line);
+  }
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(238px,1fr));gap:11px}
+  .card{
+    background:var(--card);border-radius:12px;padding:12px 14px 13px;
+    border:1px solid var(--line);
+    box-shadow:0 1px 2px rgba(0,0,0,.035);
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(0,0,0,.09)}
+  .card h4{font-size:15px;font-weight:700;display:flex;align-items:center;gap:7px;margin-bottom:7px}
+  .tag{
+    font-size:11px;font-weight:500;padding:1px 8px;border-radius:999px;
+    background:color-mix(in srgb, var(--c) 12%, #fff);
+    color:var(--c);border:1px solid color-mix(in srgb, var(--c) 30%, #fff);
+    white-space:nowrap;
+  }
+  .line{font-size:12.8px;color:#3d4553;margin-top:4px;display:flex;gap:7px;align-items:flex-start}
+  .k{
+    flex:none;font-size:10.5px;line-height:1.75;padding:0 6px;border-radius:5px;
+    background:#eef0f4;color:#5a6474;margin-top:2px;
+  }
+  .k.g{background:#e7f5ee;color:#1f7d56}
+  .k.r{background:#fdeee9;color:#c04a22}
+  .k.b{background:#eaf1fc;color:#2b5fa8}
+  .k.p{background:#f2ecfd;color:#6a3fc0}
+  .note{color:#b3401f;font-weight:600}
+
+  .vs{
+    margin-top:10px;font-size:12.5px;color:#4b5464;line-height:1.7;
+    background:rgba(255,255,255,.8);border-left:3px solid var(--c);
+    padding:7px 11px;border-radius:8px;
+  }
+  .vs b{color:var(--c)}
+
+  footer{text-align:center;font-size:12.5px;color:#9aa3b2;padding:0 20px 40px}
+
+  @media print{
+    header{position:static;background:#fff;color:#000;box-shadow:none;border-bottom:1px solid #ccc}
+    h1 span,.legend,nav{display:none}
+    body{background:#fff}
+    .card,.cluster{break-inside:avoid;box-shadow:none}
+    section{margin-bottom:22px}
+  }
+  @media (max-width:520px){
+    h1{font-size:17px} h1 span{display:block;margin:4px 0 0}
+    .grid{grid-template-columns:1fr}
+    .cluster-head .hint{margin-left:0;width:100%;text-align:left}
+  }
+</style>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body class="site-page" data-page="清热药.html">
+
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="解表药.html" data-page="解表药.html">解表</a>
+      <a href="清热药.html" data-page="清热药.html">清热</a>
+      <a href="攻下药.html" data-page="攻下药.html">泻下</a>
+      <a href="利水渗湿药.html" data-page="利水渗湿药.html">祛湿</a>
+      <a href="温里药.html" data-page="温里药.html">温里</a>
+      <a href="止咳化痰药.html" data-page="止咳化痰药.html">化痰</a>
+      <a href="行气消食药.html" data-page="行气消食药.html">理气</a>
+      <a href="活血止血药.html" data-page="活血止血药.html">活血</a>
+      <a href="补虚益气药.html" data-page="补虚益气药.html">补虚</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+
+
+<header>
+  <div class="head-inner">
+    <h1>清热药 · 三级分类记忆导图<span>大类 → 子类 → 药｜先记“清哪里、怎么清”，再记“类内差在哪”</span></h1>
+    <div class="legend">
+      <span><b style="background:#eef0f4"></b>共同功效</span>
+      <span><b style="background:#fdeee9"></b>差异特长</span>
+      <span><b style="background:#eaf1fc"></b>主证关键词</span>
+      <span><b style="background:#f2ecfd"></b>注意 / 炮制 / 药力</span>
+    </div>
+    <nav>
+      <a href="#xiehuo">清热泻火</a>
+      <a href="#zaoshi">清热燥湿</a>
+      <a href="#jiedu">清热解毒</a>
+      <a href="#liangxue">清热凉血</a>
+      <a href="#xure">清虚热</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ==================== 清热泻火药 ==================== -->
+<section id="xiehuo" class="g-xiehuo">
+  <h2 class="grp-title"><span class="dot"></span>清热泻火药<small>6 味 · 3 个子类</small></h2>
+  <div class="axis">
+    <b>三条轴：</b>①<b>清气分实热</b>——石膏（专清实热，无滋阴）vs 知母（清热兼滋阴润燥）。②<b>清热生津</b>——芦根（兼利尿、清胃清肺）vs 天花粉（兼消肿排脓）。③<b>清三焦/心胃火</b>——栀子（清泻三焦，生用泻火焦用止血）vs 淡竹叶（清心胃，长于导湿利尿）。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>清气分实热 · 石膏 vs 知母</h3>
+      <span class="hint">石膏专清实热，知母清热兼滋阴</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>石膏<span class="tag">专清实热</span></h4>
+        <p class="line"><span class="k g">功效</span>清热泻火，除烦止渴；煅用收湿敛疮止血</p>
+        <p class="line"><span class="k r">特长</span>专清实热，<b>无滋阴之力</b>；生用清热泻火除烦止渴，煅用收湿敛疮止血</p>
+        <p class="line"><span class="k b">主证</span>气分大热；肺热咳喘；胃火牙痛头痛</p>
+        <p class="line"><span class="k p">炮制</span>生用清热，煅用收湿敛疮</p>
+      </article>
+      <article class="card">
+        <h4>知母<span class="tag">清热兼滋阴</span></h4>
+        <p class="line"><span class="k g">功效</span>清热泻火，滋阴润燥</p>
+        <p class="line"><span class="k r">特长</span>清热又能<b>滋阴润燥</b>，实热虚热两清</p>
+        <p class="line"><span class="k b">主证</span>气分实热；肺燥干咳；肾阴不足骨蒸潮热</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>石膏<b>专清实热、无滋阴</b>，主气分大热、肺热胃火；知母<b>清热兼滋阴润燥</b>，实热虚热皆可，主肺燥干咳、骨蒸潮热。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>清热生津 · 芦根 vs 天花粉</h3>
+      <span class="hint">芦根兼利尿，天花粉兼排脓</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>芦根<span class="tag">清热生津利尿</span></h4>
+        <p class="line"><span class="k g">功效</span>清热泻火，生津止渴，除烦，止呕，利尿</p>
+        <p class="line"><span class="k r">特长</span>清热生津，清胃清肺兼利尿</p>
+        <p class="line"><span class="k b">主证</span>热病津伤口渴；胃热呕哕；肺痈吐脓；热淋涩痛</p>
+      </article>
+      <article class="card">
+        <h4>天花粉<span class="tag">消肿排脓</span></h4>
+        <p class="line"><span class="k g">功效</span>清热泻火，生津止渴，消肿排脓</p>
+        <p class="line"><span class="k r">特长</span>生津润燥，<b>擅长消肿排脓</b></p>
+        <p class="line"><span class="k b">主证</span>热病伤津消渴；肺热燥咳；疮痈肿毒</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>芦根<b>兼利尿、清胃清肺</b>，主热病津伤口渴、胃热呕哕、肺痈、热淋；天花粉<b>兼消肿排脓</b>，主消渴、肺热燥咳、疮痈肿毒。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>清三焦/心胃火 · 栀子 vs 淡竹叶</h3>
+      <span class="hint">栀子清三焦，淡竹叶长于导湿利尿</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>栀子<span class="tag">清泻三焦</span></h4>
+        <p class="line"><span class="k g">功效</span>泻火除烦，清热利湿，凉血解毒；焦栀子止血</p>
+        <p class="line"><span class="k r">特长</span>清泻三焦之火；<b>生用泻火，焦用止血</b></p>
+        <p class="line"><span class="k b">主证</span>热病心烦懊憹；湿热黄疸热淋；血热出血；热毒疮肿</p>
+        <p class="line"><span class="k p">炮制</span>生用泻火，焦栀子止血</p>
+      </article>
+      <article class="card">
+        <h4>淡竹叶<span class="tag">导湿利尿</span></h4>
+        <p class="line"><span class="k g">功效</span>清热泻火，除烦止渴，利尿通淋</p>
+        <p class="line"><span class="k r">特长</span>清心胃之火，<b>长于导湿利尿</b></p>
+        <p class="line"><span class="k b">主证</span>热病心烦口渴；心火口舌生疮；小肠热淋小便涩痛</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>栀子<b>清泻三焦、生用泻火焦用止血</b>，主心烦懊憹、黄疸热淋、血热出血；淡竹叶<b>清心胃、长于导湿利尿</b>，主心火口疮、小肠热淋涩痛。</div>
+  </div>
+</section>
+
+<!-- ==================== 清热燥湿药 ==================== -->
+<section id="zaoshi" class="g-zaoshi">
+  <h2 class="grp-title"><span class="dot"></span>清热燥湿药<small>5 味 · 3 个子类</small></h2>
+  <div class="axis">
+    <b>三黄分三焦轴：</b>黄芩（善清肺火，上焦）｜黄连（善清中焦、清心胃之火）｜黄柏（下焦湿热、阴虚骨蒸）。<b>兼功轴：</b>苦参兼杀虫利尿清心宁悸｜秦皮兼收涩、可煎水洗目。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>三黄 · 分三焦</h3>
+      <span class="hint">黄芩上焦肺，黄连中焦心胃，黄柏下焦</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>黄芩<span class="tag">善清肺火</span></h4>
+        <p class="line"><span class="k g">功效</span>清热燥湿，泻火解毒，止血，安胎</p>
+        <p class="line"><span class="k r">特长</span><b>善清肺火</b>，偏上焦；兼止血安胎</p>
+        <p class="line"><span class="k b">主证</span>湿热诸证；肺热咳喘；血热出血；胎热胎动不安</p>
+      </article>
+      <article class="card">
+        <h4>黄连<span class="tag">善清中焦</span></h4>
+        <p class="line"><span class="k g">功效</span>清热燥湿，泻火解毒</p>
+        <p class="line"><span class="k r">特长</span><b>善清中焦、清心胃之火</b></p>
+        <p class="line"><span class="k b">主证</span>湿热泻痢；心火烦躁；胃热呕痛；肝火吞酸；疮疡湿疹</p>
+      </article>
+      <article class="card">
+        <h4>黄柏<span class="tag">善清下焦</span></h4>
+        <p class="line"><span class="k g">功效</span>清热燥湿，泻火除蒸，解毒疗疮</p>
+        <p class="line"><span class="k r">特长</span><b>善清下焦湿热</b>，兼退阴虚骨蒸</p>
+        <p class="line"><span class="k b">主证</span>下焦湿热淋浊带下；脚气痿痹；阴虚骨蒸潮热；疮疡湿疹</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>黄芩<b>上焦肺火</b>，兼止血安胎；黄连<b>中焦心胃火</b>，主湿热泻痢、心火胃热；黄柏<b>下焦湿热</b>，兼阴虚骨蒸、脚气痿痹。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>兼杀虫利尿 · 兼收涩</h3>
+      <span class="hint">苦参兼清心宁悸，秦皮可洗目</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>苦参<span class="tag">杀虫利尿</span></h4>
+        <p class="line"><span class="k g">功效</span>清热燥湿，杀虫，利尿</p>
+        <p class="line"><span class="k r">特长</span>清热燥湿杀虫利尿，<b>兼清心宁悸</b></p>
+        <p class="line"><span class="k b">主证</span>湿热泻痢黄疸；热淋；湿疹疥癣阴痒</p>
+      </article>
+      <article class="card">
+        <h4>秦皮<span class="tag">收涩洗目</span></h4>
+        <p class="line"><span class="k g">功效</span>清热燥湿，收涩止痢，止带，明目</p>
+        <p class="line"><span class="k r">特长</span>清热燥湿<b>兼收涩</b>，可煎水洗目</p>
+        <p class="line"><span class="k b">主证</span>湿热泻痢；赤白带下；肝火目赤翳障</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>苦参<b>兼杀虫利尿、清心宁悸</b>，主湿热泻痢黄疸、湿疹阴痒；秦皮<b>兼收涩、可洗目</b>，主湿热泻痢、赤白带下、目赤翳障。</div>
+  </div>
+</section>
+
+<!-- ==================== 清热解毒药 ==================== -->
+<section id="jiedu" class="g-jiedu">
+  <h2 class="grp-title"><span class="dot"></span>清热解毒药<small>9 味 · 3 个子类</small></h2>
+  <div class="axis">
+    <b>三条轴：</b>①<b>疮痈要药</b>——银花（兼清暑热）｜连翘（兼散结）｜蒲公英（乳痈首选，兼利尿）｜野菊花（兼平肝泻火）。②<b>专病专药</b>——土茯苓（梅毒汞毒）｜败酱草（肠痈要药）｜射干（咽喉痰热）｜白头翁（热毒血痢）。③<b>消痈敛疮</b>——白蔹（内外皆宜）。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>疮痈要药 · 兼长各不同</h3>
+      <span class="hint">银花清暑，连翘散结，蒲公英乳痈，野菊花平肝</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>银花<span class="tag">兼清暑热</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，疏散风热</p>
+        <p class="line"><span class="k r">特长</span>疮痈肿毒要药，<b>兼清暑热</b></p>
+        <p class="line"><span class="k b">主证</span>疮痈肿毒；风热感冒、温病初起；热毒血痢</p>
+      </article>
+      <article class="card">
+        <h4>连翘<span class="tag">兼散结</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，消肿散结，疏散风热</p>
+        <p class="line"><span class="k r">特长</span>清热解毒<b>兼散结</b></p>
+        <p class="line"><span class="k b">主证</span>疮痈瘰疬；风热温病；热淋</p>
+      </article>
+      <article class="card">
+        <h4>蒲公英<span class="tag">乳痈首选</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，消肿散结，利湿通淋</p>
+        <p class="line"><span class="k r">特长</span><b>乳痈首选</b>，解毒散结利尿</p>
+        <p class="line"><span class="k b">主证</span>疮痈肿毒、乳痈；热淋；黄疸</p>
+      </article>
+      <article class="card">
+        <h4>野菊花<span class="tag">兼平肝</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，泻火平肝</p>
+        <p class="line"><span class="k r">特长</span>清热解毒<b>兼平肝泻火</b></p>
+        <p class="line"><span class="k b">主证</span>疔疮咽痛；肝火目赤；肝阳头痛</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>银花<b>兼清暑热</b>，主疮痈、风热温病；连翘<b>兼散结</b>，主疮痈瘰疬；蒲公英<b>乳痈首选兼利尿</b>；野菊花<b>兼平肝泻火</b>，主疔疮咽痛、肝火目赤、肝阳头痛。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>专病专药 · 部位/病种特长</h3>
+      <span class="hint">土茯苓梅毒，败酱草肠痈，射干咽喉，白头翁血痢</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>土茯苓<span class="tag">梅毒专药</span></h4>
+        <p class="line"><span class="k g">功效</span>解毒除湿，通利关节</p>
+        <p class="line"><span class="k r">特长</span>梅毒汞毒肢体拘挛；解毒除湿通关节，<b>量大效佳</b></p>
+        <p class="line"><span class="k b">主证</span>梅毒汞毒肢体拘挛；湿热淋浊湿疹</p>
+      </article>
+      <article class="card">
+        <h4>败酱草<span class="tag">肠痈要药</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，消痈排脓，祛瘀止痛</p>
+        <p class="line"><span class="k r">特长</span><b>肠痈要药</b>，消痈排脓兼祛瘀止痛</p>
+        <p class="line"><span class="k b">主证</span>肠痈；肺痈疮肿；产后瘀痛</p>
+      </article>
+      <article class="card">
+        <h4>射干<span class="tag">善消痰利咽</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，消痰，利咽</p>
+        <p class="line"><span class="k r">特长</span>解毒利咽，<b>善消痰</b></p>
+        <p class="line"><span class="k b">主证</span>痰热咽喉肿痛；痰热咳喘</p>
+      </article>
+      <article class="card">
+        <h4>白头翁<span class="tag">血痢专药</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，凉血止痢</p>
+        <p class="line"><span class="k r">特长</span><b>热毒血痢专药</b></p>
+        <p class="line"><span class="k b">主证</span>热毒血痢；湿热带下阴痒</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>土茯苓<b>梅毒汞毒专药</b>；败酱草<b>肠痈要药</b>；射干<b>咽喉痰热、善消痰</b>；白头翁<b>热毒血痢专药</b>。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">3</span><h3>消痈敛疮 · 内外皆宜</h3>
+      <span class="hint">可内服外用</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>白蔹<span class="tag">敛疮收口</span></h4>
+        <p class="line"><span class="k g">功效</span>清热解毒，消痈散结，敛疮生肌</p>
+        <p class="line"><span class="k r">特长</span>可消痈、敛疮收口，<b>内服外用皆宜</b></p>
+        <p class="line"><span class="k b">主证</span>痈肿瘰疬；烧烫伤皲裂</p>
+      </article>
+    </div>
+    <div class="vs"><b>为什么单列：</b>清热解毒中唯一<b>消痈+敛疮收口</b>双能，内服外用皆宜，主痈肿瘰疬、烧烫伤皲裂。</div>
+  </div>
+</section>
+
+<!-- ==================== 清热凉血药 ==================== -->
+<section id="liangxue" class="g-liangxue">
+  <h2 class="grp-title"><span class="dot"></span>清热凉血药<small>5 味 · 2 个子类</small></h2>
+  <div class="axis">
+    <b>两条轴：</b>①<b>凉血养阴</b>——生地黄（偏养阴生津）vs 玄参（偏降火解毒散结）。②<b>凉血活血</b>——牡丹皮（兼无汗骨蒸）｜赤芍（兼散瘀止痛）｜紫草（兼透疹消斑）。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>凉血养阴 · 生地 vs 玄参</h3>
+      <span class="hint">生地偏养阴生津，玄参偏降火解毒散结</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>生地黄<span class="tag">养阴生津</span></h4>
+        <p class="line"><span class="k g">功效</span>清热凉血，养阴生津</p>
+        <p class="line"><span class="k r">特长</span>清热凉血，<b>偏养阴生津</b></p>
+        <p class="line"><span class="k b">主证</span>热入营血；血热出血；热病伤阴消渴；津伤便秘；阴虚骨蒸</p>
+      </article>
+      <article class="card">
+        <h4>玄参<span class="tag">降火解毒散结</span></h4>
+        <p class="line"><span class="k g">功效</span>清热凉血，滋阴降火，解毒散结</p>
+        <p class="line"><span class="k r">特长</span>清热凉血，<b>偏滋阴降火、解毒散结</b></p>
+        <p class="line"><span class="k b">主证</span>热入营血、邪陷心包；阴虚骨蒸劳嗽；津伤便秘；咽痛瘰疬疮痈</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>生地黄<b>偏养阴生津</b>，主热入营血、血热出血、伤阴消渴便秘；玄参<b>偏降火解毒散结</b>，主邪陷心包、咽痛瘰疬疮痈。</div>
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">2</span><h3>凉血活血 · 丹皮/赤芍/紫草</h3>
+      <span class="hint">丹皮无汗骨蒸，赤芍止痛，紫草透疹</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>牡丹皮<span class="tag">无汗骨蒸</span></h4>
+        <p class="line"><span class="k g">功效</span>清热凉血，活血化瘀</p>
+        <p class="line"><span class="k r">特长</span>清热凉血兼活血化瘀，<b>善治无汗骨蒸</b></p>
+        <p class="line"><span class="k b">主证</span>温毒发斑；血热出血；血瘀经闭跌打疮痈肠痈；无汗骨蒸</p>
+      </article>
+      <article class="card">
+        <h4>赤芍<span class="tag">散瘀止痛</span></h4>
+        <p class="line"><span class="k g">功效</span>清热凉血，散瘀止痛</p>
+        <p class="line"><span class="k r">特长</span>清热凉血，<b>散瘀止痛</b></p>
+        <p class="line"><span class="k b">主证</span>温毒发斑；血热出血；肝郁胁痛经闭癥瘕；跌打疮痈；肝火目赤</p>
+      </article>
+      <article class="card">
+        <h4>紫草<span class="tag">透疹消斑</span></h4>
+        <p class="line"><span class="k g">功效</span>清热凉血，活血解毒，透疹消斑</p>
+        <p class="line"><span class="k r">特长</span>清热凉血，<b>活血解毒、透疹消斑</b></p>
+        <p class="line"><span class="k b">主证</span>血热毒盛斑疹紫暗、麻疹不透；疮疡湿疹水火烫伤</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>牡丹皮<b>兼无汗骨蒸</b>；赤芍<b>兼散瘀止痛</b>，主肝郁胁痛经闭癥瘕；紫草<b>兼透疹消斑</b>，主斑疹紫暗、麻疹不透、烫伤。</div>
+  </div>
+</section>
+
+<!-- ==================== 清虚热药 ==================== -->
+<section id="xure" class="g-xure">
+  <h2 class="grp-title"><span class="dot"></span>清虚热药<small>2 味 · 1 个子类</small></h2>
+  <div class="axis">
+    <b>一句话对比：</b>白薇（兼利尿解毒，阴虚外感）vs 地骨皮（善退有汗骨蒸，清肺降火）。<b>骨蒸鉴别：</b>无汗骨蒸选牡丹皮，有汗骨蒸选地骨皮。
+  </div>
+
+  <div class="cluster">
+    <div class="cluster-head">
+      <span class="num">1</span><h3>退虚热 · 白薇 vs 地骨皮</h3>
+      <span class="hint">白薇兼利尿解毒，地骨皮善退有汗骨蒸</span>
+    </div>
+    <div class="grid">
+      <article class="card">
+        <h4>白薇<span class="tag">兼利尿解毒</span></h4>
+        <p class="line"><span class="k g">功效</span>清热凉血，退虚热，利尿通淋，解毒疗疮</p>
+        <p class="line"><span class="k r">特长</span>清热凉血退虚热，<b>兼利尿解毒</b></p>
+        <p class="line"><span class="k b">主证</span>阴虚虚热；阴虚外感；热淋血淋；疮毒咽痛</p>
+      </article>
+      <article class="card">
+        <h4>地骨皮<span class="tag">有汗骨蒸</span></h4>
+        <p class="line"><span class="k g">功效</span>凉血除蒸，清肺降火</p>
+        <p class="line"><span class="k r">特长</span>凉血除蒸、清肺降火，<b>善退有汗骨蒸</b></p>
+        <p class="line"><span class="k b">主证</span>阴虚骨蒸盗汗；肺热咳嗽；血热出血</p>
+      </article>
+    </div>
+    <div class="vs"><b>组内怎么分：</b>白薇<b>兼利尿解毒</b>，主阴虚虚热、阴虚外感、热淋血淋；地骨皮<b>善退有汗骨蒸、清肺降火</b>，主骨蒸盗汗、肺热咳嗽、血热出血。<b>记忆：无汗骨蒸牡丹皮，有汗骨蒸地骨皮。</b></div>
+  </div>
+</section>
+
+</main>
+
+<div class="site-mount" data-page="清热药.html"></div>
+
+<footer>清热药 · 三级分类版 · 先记子类归属，再记组内差异 · 可直接 Ctrl/⌘+P 存为 PDF</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>

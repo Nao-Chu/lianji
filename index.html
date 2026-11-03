@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>本草经纬 · 中药分类记忆图谱</title>
+<meta name="description" content="9 张中药三级分类导图，193 味药材全站索引。按「大类 → 子类 → 药」记忆，跨类关联、全站搜索一搜直达。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/home.css">
+</head>
+<body class="site-home" data-page="index.html">
+
+<!-- ==================== 站点头部 ==================== -->
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="解表药.html" data-page="解表药.html">解表</a>
+      <a href="清热药.html" data-page="清热药.html">清热</a>
+      <a href="攻下药.html" data-page="攻下药.html">泻下</a>
+      <a href="利水渗湿药.html" data-page="利水渗湿药.html">祛湿</a>
+      <a href="温里药.html" data-page="温里药.html">温里</a>
+      <a href="止咳化痰药.html" data-page="止咳化痰药.html">化痰</a>
+      <a href="行气消食药.html" data-page="行气消食药.html">理气</a>
+      <a href="活血止血药.html" data-page="活血止血药.html">活血</a>
+      <a href="补虚益气药.html" data-page="补虚益气药.html">补虚</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+<main class="home">
+
+  <!-- ==================== Hero ==================== -->
+  <section class="home-hero">
+    <div class="hero-in">
+      <span class="hero-eyebrow">三级分类 · 方证对比 · 全站串联</span>
+      <h1 class="hero-title">把 <span class="hero-num">193</span> 味中药，<br>织成一张能记住的网。</h1>
+      <p class="hero-lead">9 张三级分类导图，按「<strong>大类 → 子类 → 药</strong>」层层收束：先看它归哪一类，再在组内对比条里看清“差在哪”。分类、药材与跨类关联，都能一搜直达。</p>
+
+      <button class="hero-search" type="button" data-bc-open-search>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+        <span class="hero-search-text">输入药名、功效或主证，例如「安胎」「润肠」「桂枝」</span>
+        <span class="hero-search-k">Ctrl K</span>
+      </button>
+
+      <div class="hero-terms">
+        <span>快捷查</span>
+        <button type="button" data-bc-search="安胎">安胎</button>
+        <button type="button" data-bc-search="明目">明目</button>
+        <button type="button" data-bc-search="润肠">润肠</button>
+        <button type="button" data-bc-search="止呕">止呕</button>
+        <button type="button" data-bc-search="安神">安神</button>
+        <button type="button" data-bc-search="利水">利水</button>
+        <a href="#index">浏览全部 ↓</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat"><b data-bc-count="pages">9</b><span>张导图</span></div>
+        <div class="hero-stat"><b data-bc-count="cats">27</b><span>类药</span></div>
+        <div class="hero-stat"><b data-bc-count="herbs">193</b><span>味药</span></div>
+        <div class="hero-stat"><b data-bc-count="groups">100</b><span>个对比组</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 九张导图 ==================== -->
+  <section class="home-section" id="maps">
+    <div class="section-head">
+      <span class="sec-eyebrow">九张导图</span>
+      <h2 class="sec-title">从表到里，从实到虚</h2>
+      <p class="sec-lead">每张图都是一条独立的记忆线。先用它把一类药记住，再去「跨类关联」处把它们接起来——<b>孤立的知识点，才会变成一张网。</b></p>
+    </div>
+
+    <div class="cat-grid">
+      <a class="cat-card" href="解表药.html" style="--a:#b06a2c">
+        <span class="cat-water" aria-hidden="true">表</span>
+        <span class="cat-top"><span class="cat-no">01</span><span>外感第一站</span></span>
+        <h3 class="cat-title">解表药</h3>
+        <p class="cat-tagline">把邪气从表面请出去</p>
+        <p class="cat-desc">先分风寒、风热，再看开表、解肌、祛风与清利头目的差别。</p>
+        <div class="cat-chips"><span>发散风寒</span><span>发散风热</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>13</b> 味 · <b>2</b> 类 · <b>7</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="清热药.html" style="--a:#2e6f9e">
+        <span class="cat-water" aria-hidden="true">热</span>
+        <span class="cat-top"><span class="cat-no">02</span><span>热邪分层</span></span>
+        <h3 class="cat-title">清热药</h3>
+        <p class="cat-tagline">先辨热在哪一层，再选哪一味凉</p>
+        <p class="cat-desc">泻火、燥湿、解毒、凉血、退虚热五段推进，把气分、营血与脏腑之热分开。</p>
+        <div class="cat-chips"><span>清热泻火</span><span>清热燥湿</span><span>清热解毒</span><span>清热凉血</span><span>清虚热</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>27</b> 味 · <b>5</b> 类 · <b>11</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="攻下药.html" style="--a:#a35a1f">
+        <span class="cat-water" aria-hidden="true">下</span>
+        <span class="cat-top"><span class="cat-no">03</span><span>有形之邪</span></span>
+        <h3 class="cat-title">泻下药 · 逐水药</h3>
+        <p class="cat-tagline">让实邪从二便走</p>
+        <p class="cat-desc">泻下分寒热峻缓，逐水按强弱与部位排开；先辨有形之邪停在哪里。</p>
+        <div class="cat-chips"><span>泻下</span><span>逐水</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>8</b> 味 · <b>2</b> 类 · <b>5</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="利水渗湿药.html" style="--a:#4a7f6b">
+        <span class="cat-water" aria-hidden="true">湿</span>
+        <span class="cat-top"><span class="cat-no">04</span><span>湿邪三态</span></span>
+        <h3 class="cat-title">祛风湿 · 化湿 · 利水渗湿药</h3>
+        <p class="cat-tagline">湿在上中下，各有出口</p>
+        <p class="cat-desc">祛风湿、芳香化湿、利水渗湿三条线：外湿走关节，中湿化脾胃，下湿利小便。</p>
+        <div class="cat-chips"><span>祛风湿</span><span>化湿</span><span>利水渗湿</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>29</b> 味 · <b>3</b> 类 · <b>13</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="温里药.html" style="--a:#c0392b">
+        <span class="cat-water" aria-hidden="true">温</span>
+        <span class="cat-top"><span class="cat-no">05</span><span>寒邪入里</span></span>
+        <h3 class="cat-title">温里药</h3>
+        <p class="cat-tagline">寒在哪里，就温到哪里</p>
+        <p class="cat-desc">按“温哪里、怎么温”两条轴，分清回阳救逆、温中散寒、引火归元。</p>
+        <div class="cat-chips"><span>回阳救逆</span><span>温中散寒</span><span>引火归元</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>6</b> 味 · <b>1</b> 类 · <b>5</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="止咳化痰药.html" style="--a:#0e8f7e">
+        <span class="cat-water" aria-hidden="true">痰</span>
+        <span class="cat-top"><span class="cat-no">06</span><span>肺系主战场</span></span>
+        <h3 class="cat-title">化痰止咳平喘药</h3>
+        <p class="cat-tagline">痰、咳、喘，一条线分清</p>
+        <p class="cat-desc">温化寒痰、清热化痰、止咳平喘三段推进，先辨寒热，再分痰、咳、喘。</p>
+        <div class="cat-chips"><span>温化寒痰</span><span>清热化痰</span><span>止咳平喘</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>20</b> 味 · <b>3</b> 类 · <b>14</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="行气消食药.html" style="--a:#8a5a9e">
+        <span class="cat-water" aria-hidden="true">气</span>
+        <span class="cat-top"><span class="cat-no">07</span><span>气机与食积</span></span>
+        <h3 class="cat-title">理气药 · 消食药</h3>
+        <p class="cat-tagline">先定位气堵在哪，再看积的是什么</p>
+        <p class="cat-desc">理气按气滞部位分五组，消食按食积类型分三组；先定位，再选药。</p>
+        <div class="cat-chips"><span>理气</span><span>消食</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>12</b> 味 · <b>2</b> 类 · <b>8</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="活血止血药.html" style="--a:#c9366b">
+        <span class="cat-water" aria-hidden="true">血</span>
+        <span class="cat-top"><span class="cat-no">08</span><span>血分辨治</span></span>
+        <h3 class="cat-title">活血化瘀药</h3>
+        <p class="cat-tagline">瘀与血，先分虚实再分部位</p>
+        <p class="cat-desc">止血、活血止痛、活血调经、破血消癥四条线，按药力峻缓逐级推进。</p>
+        <div class="cat-chips"><span>止血</span><span>活血止痛</span><span>活血调经</span><span>破血消癥</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>24</b> 味 · <b>4</b> 类 · <b>11</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+
+      <a class="cat-card" href="补虚益气药.html" style="--a:#1f9d6b">
+        <span class="cat-water" aria-hidden="true">补</span>
+        <span class="cat-top"><span class="cat-no">09</span><span>扶正与固摄</span></span>
+        <h3 class="cat-title">补虚药 · 收涩药</h3>
+        <p class="cat-tagline">补回来，再把漏掉的收住</p>
+        <p class="cat-desc">补气、补阳、补血、补阴四类扶正，收涩药负责敛汗、敛肺、涩肠、固精。</p>
+        <div class="cat-chips"><span>补气</span><span>补阳</span><span>补血</span><span>补阴</span><span>收涩</span></div>
+        <div class="cat-foot"><span class="cat-count"><b>54</b> 味 · <b>5</b> 类 · <b>26</b> 组</span><span class="cat-go">打开导图 →</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================== 三步用法 ==================== -->
+  <section class="home-section" id="how">
+    <div class="section-head">
+      <span class="sec-eyebrow">使用方式</span>
+      <h2 class="sec-title">一张图，三步记</h2>
+      <p class="sec-lead">导图不是功效列表，而是一套“先定位、再区分”的记忆顺序。</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step">
+        <span class="step-no">第一步</span>
+        <h3>先定大类</h3>
+        <p>看到一味药，先问：它解决的是<b>表、里、热、湿、痰、气食、血，还是虚</b>？大类决定方向，不急着背具体药。</p>
+      </div>
+      <div class="step">
+        <span class="step-no">第二步</span>
+        <h3>再找子类</h3>
+        <p>在每个大类内，用“<b>子类标题 + 右侧 hint</b>”判断归属；被单独列出的，往往就是这味药的唯一特长。</p>
+      </div>
+      <div class="step">
+        <span class="step-no">第三步</span>
+        <h3>最后读对比条</h3>
+        <p>每组底部的<b>「组内怎么分」</b>是全图精华，把相近药的差异浓缩成一句话，背这一句比背十行功效更划算。</p>
+      </div>
+    </div>
+    <div class="usage-note">
+      <span aria-hidden="true">✦</span>
+      <span>每张导图都保留独立成页的结构，可直接 <b>Ctrl/⌘ + P</b> 存为 PDF；页尾的「这张图之外」会把你送到病机上下游的相邻大类。</span>
+    </div>
+  </section>
+
+  <!-- ==================== 推荐路径 ==================== -->
+  <section class="home-section" id="path">
+    <div class="section-head">
+      <span class="sec-eyebrow">推荐顺序</span>
+      <h2 class="sec-title">从外感到虚损的九站</h2>
+      <p class="sec-lead">如果不知从哪开始，就按这条线走：外邪 → 热 → 里实 → 湿 → 寒 → 痰 → 气食 → 血分 → 正虚。</p>
+    </div>
+    <div class="path-wrap">
+      <div class="path">
+        <a class="path-step" href="解表药.html" style="--a:#b06a2c"><span class="path-no">01</span><span class="path-title">解表药</span><span class="path-why">先认外邪在表</span></a>
+        <a class="path-step" href="清热药.html" style="--a:#2e6f9e"><span class="path-no">02</span><span class="path-title">清热药</span><span class="path-why">表邪入里，先辨热层</span></a>
+        <a class="path-step" href="攻下药.html" style="--a:#a35a1f"><span class="path-no">03</span><span class="path-title">泻下 · 逐水</span><span class="path-why">有形实邪，从二便走</span></a>
+        <a class="path-step" href="利水渗湿药.html" style="--a:#4a7f6b"><span class="path-no">04</span><span class="path-title">祛湿 · 利水</span><span class="path-why">湿邪停聚，分上中下</span></a>
+        <a class="path-step" href="温里药.html" style="--a:#c0392b"><span class="path-no">05</span><span class="path-title">温里药</span><span class="path-why">寒邪入里，再分脏腑</span></a>
+        <a class="path-step" href="止咳化痰药.html" style="--a:#0e8f7e"><span class="path-no">06</span><span class="path-title">化痰止咳平喘</span><span class="path-why">痰咳喘，先辨寒热</span></a>
+        <a class="path-step" href="行气消食药.html" style="--a:#8a5a9e"><span class="path-no">07</span><span class="path-title">理气 · 消食</span><span class="path-why">气机与食积，先定位</span></a>
+        <a class="path-step" href="活血止血药.html" style="--a:#c9366b"><span class="path-no">08</span><span class="path-title">活血化瘀</span><span class="path-why">久病入络，血分辨治</span></a>
+        <a class="path-step" href="补虚益气药.html" style="--a:#1f9d6b"><span class="path-no">09</span><span class="path-title">补虚 · 收涩</span><span class="path-why">最后回到扶正固本</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 跨类关联 ==================== -->
+  <section class="home-section" id="links">
+    <div class="section-head">
+      <span class="sec-eyebrow">跨类关联</span>
+      <h2 class="sec-title">把孤立的图接起来</h2>
+      <p class="sec-lead">真正的“产品感”，来自知道下一步该看哪张图。下面是七组最常同时出现的病机对。</p>
+    </div>
+    <div class="pair-list">
+      <div class="pair-row">
+        <a class="pair-node" href="解表药.html" style="--a:#b06a2c"><span class="pair-key">表</span><strong>解表药</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="温里药.html" style="--a:#c0392b"><span class="pair-key">里</span><strong>温里药</strong></a>
+        <p class="pair-why">寒在表用解表，寒入里用温里；桂枝、生姜与姜、附一脉相承。</p>
+      </div>
+      <div class="pair-row">
+        <a class="pair-node" href="清热药.html" style="--a:#2e6f9e"><span class="pair-key">热</span><strong>清热药</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="利水渗湿药.html" style="--a:#4a7f6b"><span class="pair-key">湿</span><strong>祛湿 · 利水</strong></a>
+        <p class="pair-why">湿热交结：清热燥湿与利水渗湿同用，湿去则热孤。</p>
+      </div>
+      <div class="pair-row">
+        <a class="pair-node" href="攻下药.html" style="--a:#a35a1f"><span class="pair-key">实</span><strong>泻下 · 逐水</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="补虚益气药.html" style="--a:#1f9d6b"><span class="pair-key">虚</span><strong>补虚药</strong></a>
+        <p class="pair-why">一通一补：攻邪之前，先看正气能否受攻；攻后也要回到扶正。</p>
+      </div>
+      <div class="pair-row">
+        <a class="pair-node" href="止咳化痰药.html" style="--a:#0e8f7e"><span class="pair-key">痰</span><strong>化痰止咳平喘</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="补虚益气药.html" style="--a:#1f9d6b"><span class="pair-key">补</span><strong>补虚药</strong></a>
+        <p class="pair-why">久咳多虚：化痰止咳治标，补气补阴治本，收涩药敛肺以固其耗散。</p>
+      </div>
+      <div class="pair-row">
+        <a class="pair-node" href="行气消食药.html" style="--a:#8a5a9e"><span class="pair-key">气</span><strong>理气 · 消食</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="活血止血药.html" style="--a:#c9366b"><span class="pair-key">血</span><strong>活血化瘀药</strong></a>
+        <p class="pair-why">气行则血行，气滞日久必瘀；行气与活血常前后相接。</p>
+      </div>
+      <div class="pair-row">
+        <a class="pair-node" href="活血止血药.html" style="--a:#c9366b"><span class="pair-key">瘀</span><strong>活血化瘀药</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="补虚益气药.html" style="--a:#1f9d6b"><span class="pair-key">血</span><strong>补血药</strong></a>
+        <p class="pair-why">瘀血不去，新血不生；补血药当归、白芍也常与活血药同用。</p>
+      </div>
+      <div class="pair-row">
+        <a class="pair-node" href="补虚益气药.html" style="--a:#1f9d6b"><span class="pair-key">收</span><strong>收涩药</strong></a>
+        <span class="pair-arrow" aria-hidden="true">⇄</span>
+        <a class="pair-node" href="补虚益气药.html" style="--a:#1f9d6b"><span class="pair-key">补</span><strong>补虚药</strong></a>
+        <p class="pair-why">先固其漏，再补其虚：滑脱不禁时，收涩与补益常需同看。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 药材总索引 ==================== -->
+  <section class="home-section" id="index">
+    <div class="section-head">
+      <span class="sec-eyebrow">药材总索引</span>
+      <h2 class="sec-title"><span data-bc-count="herbs">193</span> 味，一搜直达</h2>
+      <p class="sec-lead">按药名或功效、主证过滤；点任意一味，会直接跳到它所在导图里的位置并高亮。</p>
+    </div>
+
+    <div class="index-tools">
+      <div class="index-filters" id="indexFilters"></div>
+      <label class="index-search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+        <input type="text" id="indexSearch" placeholder="在 193 味中筛选：安胎、润肠、桂枝…" autocomplete="off" aria-label="筛选药材">
+      </label>
+    </div>
+    <div class="index-count" id="indexCount">显示 193 / 193 味</div>
+
+    <div id="herbIndex"></div>
+    <div class="index-empty" id="indexEmpty" hidden>没有匹配的药材，换个关键词试试。</div>
+  </section>
+
+  </main>
+
+<!-- ==================== 页脚 ==================== -->
+<footer class="home-footer">
+  <div class="foot-in">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span class="bc-seal">本</span>
+        <div><strong>本草经纬</strong><p>中药分类记忆图谱</p></div>
+      </div>
+      <div class="foot-links">
+        <a href="解表药.html">解表药</a>
+        <a href="清热药.html">清热药</a>
+        <a href="攻下药.html">泻下药 · 逐水药</a>
+        <a href="利水渗湿药.html">祛风湿 · 化湿 · 利水渗湿药</a>
+        <a href="温里药.html">温里药</a>
+        <a href="止咳化痰药.html">化痰止咳平喘药</a>
+        <a href="行气消食药.html">理气药 · 消食药</a>
+        <a href="活血止血药.html">活血化瘀药</a>
+        <a href="补虚益气药.html">补虚药 · 收涩药</a>
+      </div>
+    </div>
+    <p class="foot-note">本图仅用于中医学习与记忆整理，不构成诊疗建议；用药请遵医嘱。<b>共 193 味 · 27 类 · 100 个对比组</b> · 本地离线版 · 更新于 2026-11</p>
+  </div>
+</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+</body>
+</html>
