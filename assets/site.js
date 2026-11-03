@@ -11,6 +11,9 @@
   var pageByFile = {};
   S.pages.forEach(function (p, i) { p._order = i; pageByFile[p.file] = p; });
 
+  // 导图页在 library/ 下一层，返回根目录要加 ../
+  var ROOT_PREFIX = (document.body.dataset.page || '').indexOf('library/') === 0 ? '../' : '';
+
   var CAT_TOTAL = S.pages.reduce(function (a, p) { return a + p.stats.cats; }, 0);
 
   function esc(s) {
@@ -152,7 +155,7 @@
       var sub = h.gx || h.zz || '';
       var pageName = p.short || h.p.replace('.html', '');
       var pathText = pageName && h.cat && pageName !== h.cat ? pageName + ' · ' + h.cat : (pageName || h.cat || '');
-      return '<a class="bc-hit" data-i="' + i + '" href="' + escAttr(h.p) + '#herb-' + encodeURIComponent(h.n) + '"' +
+      return '<a class="bc-hit" data-i="' + i + '" href="' + escAttr(ROOT_PREFIX + h.p) + '#herb-' + encodeURIComponent(h.n) + '"' +
         ' style="--a:' + escAttr(p.accent || '#a97c33') + '">' +
         '<span class="bc-hit-dot"></span>' +
         '<span class="bc-hit-main">' +
@@ -247,7 +250,7 @@
     var cards = page.related.map(function (rel) {
       var p = pageByFile[rel.file];
       if (!p) return '';
-      return '<a class="bc-rel-card" href="' + escAttr(p.file) + '" style="--a:' + escAttr(p.accent) + '">' +
+      return '<a class="bc-rel-card" href="' + escAttr(ROOT_PREFIX + p.file) + '" style="--a:' + escAttr(p.accent) + '">' +
         '<span class="bc-water" aria-hidden="true">' + esc(p.water) + '</span>' +
         '<span class="bc-rel-kicker">相关大类 · ' + p.stats.herbs + ' 味</span>' +
         '<strong>' + esc(p.name) + '</strong>' +
@@ -266,7 +269,7 @@
         '</div>' +
         '<div class="bc-related-grid">' + cards + '</div>' +
         '<div class="bc-related-foot">' +
-          '<a href="index.html">← 返回全站首页</a>' +
+          '<a href="' + escAttr(ROOT_PREFIX + 'index.html') + '">← 返回全站首页</a>' +
           '<button type="button" data-bc-open-search>搜索全站 ' + S.herbs.length + ' 味药</button>' +
         '</div>' +
       '</div>';
@@ -307,7 +310,7 @@
     wrap.innerHTML = S.pages.map(function (p) {
       var chips = S.herbs.filter(function (h) { return h.p === p.file; }).map(function (h) {
         var q = [h.n, h.t, h.gx, h.zz, h.tx, h.cat, h.g].join(' ').toLowerCase();
-        return '<a class="bc-chip" href="' + escAttr(p.file) + '#herb-' + encodeURIComponent(h.n) + '"' +
+        return '<a class="bc-chip" href="' + escAttr(ROOT_PREFIX + p.file) + '#herb-' + encodeURIComponent(h.n) + '"' +
           ' data-q="' + escAttr(q) + '" data-p="' + escAttr(p.file) + '"' +
           ' style="--a:' + escAttr(p.accent) + '" title="' + escAttr(h.gx || h.zz || '') + '">' + esc(h.n) + '</a>';
       }).join('');
@@ -315,7 +318,7 @@
         '<div class="bc-index-head"><span class="bc-idx-dot" style="background:' + escAttr(p.accent) + '"></span>' +
           '<h3>' + esc(p.name) + '</h3>' +
           '<span class="bc-idx-meta">' + p.stats.herbs + ' 味 · ' + p.stats.cats + ' 类 · ' + p.stats.groups + ' 组</span>' +
-          '<a class="bc-idx-go" href="' + escAttr(p.file) + '">打开导图 →</a>' +
+          '<a class="bc-idx-go" href="' + escAttr(ROOT_PREFIX + p.file) + '">打开导图 →</a>' +
         '</div>' +
         '<div class="bc-chips">' + chips + '</div>' +
       '</section>';
