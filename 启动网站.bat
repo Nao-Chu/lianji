@@ -37,10 +37,10 @@ echo   ------------------------------------------
 echo.
 
 start "本草经纬服务" %PYCMD% -m http.server %PORT% --bind 0.0.0.0
-timeout /t 2 >nul
+%SystemRoot%\System32\ping.exe -n 3 127.0.0.1 >nul
 
 start "" "http://127.0.0.1:%PORT%/"
 
 echo 服务已在新的命令行窗口运行，关闭那个窗口即可停止网站。
-timeout /t 3 >nul
+%SystemRoot%\System32\ping.exe -n 4 127.0.0.1 >nul
 exit /b 0
