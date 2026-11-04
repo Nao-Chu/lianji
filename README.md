@@ -168,7 +168,25 @@ python -m http.server 8000
 
 `window.SITE` 还包含 `pages`（每页的元信息、统计与分类轴）和 `related`（相关大类及推荐理由）。
 
-> `assets/herbs.js` 是由导图页面抽取生成的派生文件，不建议直接手改；内容调整应以 `library/*.html` 为准。
+> `assets/herbs.js` 是由导图页面抽取生成的派生文件，不建议直接手改；内容调整应以 `library/*.html` 为准，修改后运行 `python tools/build_data.py` 重建。
+
+---
+
+## 维护脚本
+
+仓库根目录的 `tools/` 提供两段维护脚本：
+
+| 脚本 | 用途 |
+| --- | --- |
+| `tools/build_data.py` | 解析 `library/*.html`，重建 `assets/herbs.js` |
+| `tools/deploy_api.py` | 通过 GitHub API 发布当前提交（适用于无法直连 `github.com` 的网络，需要本机已保存 GitHub 凭据） |
+
+```bash
+python tools/build_data.py
+python tools/deploy_api.py
+```
+
+前者用于内容修改后同步数据，后者仅在需要发布时执行；`deploy_api.py` 会拒绝在有未提交改动时运行。
 
 ---
 
