@@ -412,3 +412,56 @@ body.site-home h1,body.site-home h2,body.site-home h3,body.site-home p{margin:0}
   .hero-eyebrow,.hero-title,.hero-lead,.hero-search,.hero-terms,.hero-stats{animation:none}
   .cat-card,.path-step,.pair-node,.bc-chip{transition:none}
 }
+/* ---------------- 药性小测 CTA ---------------- */
+.quiz-cta{
+  position:relative;overflow:hidden;margin-top:34px;
+  display:flex;align-items:center;justify-content:space-between;gap:34px;flex-wrap:wrap;
+  padding:32px 38px;border-radius:20px;
+  background:
+    radial-gradient(620px 280px at 88% -22%,rgba(201,162,88,.24),transparent 66%),
+    linear-gradient(135deg,#202722 0%,#1b2b26 58%,#25332c 100%);
+  border:1px solid rgba(201,162,88,.26);
+  box-shadow:0 18px 44px rgba(33,40,34,.18);
+}
+.quiz-cta::after{
+  content:"測";position:absolute;right:18px;bottom:-46px;
+  font-family:var(--bc-serif);font-size:180px;line-height:1;
+  color:rgba(247,243,234,.045);pointer-events:none;user-select:none;
+}
+.quiz-cta-copy{position:relative;z-index:1;max-width:640px}
+.quiz-cta .sec-eyebrow{color:#d9b878}
+.quiz-cta .sec-eyebrow::before{background:#d9b878}
+.quiz-cta .sec-title{color:#f7f3ea;margin-top:9px}
+.quiz-cta .sec-lead{color:#b9c2b5;margin-top:10px;font-size:13.5px;line-height:1.9}
+.quiz-cta .sec-lead b{color:#f0e7d5}
+.quiz-cta-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.quiz-cta-chips span{
+  font-size:11.5px;letter-spacing:.05em;color:#d8ceb8;
+  border:1px solid rgba(201,162,88,.32);background:rgba(255,255,255,.045);
+  border-radius:999px;padding:4px 12px;
+}
+.quiz-cta-btn{
+  position:relative;z-index:1;flex:none;min-width:200px;
+  display:flex;flex-direction:column;gap:5px;
+  padding:18px 26px 16px;border-radius:14px;text-decoration:none;
+  background:linear-gradient(150deg,#b23f31,#95291f);
+  border:1px solid #c06a5d;color:#fff;
+  box-shadow:0 12px 28px rgba(0,0,0,.24);
+  transition:transform .18s,box-shadow .18s,filter .18s;
+}
+.quiz-cta-btn:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(0,0,0,.3);filter:brightness(1.05)}
+.quiz-cta-btn span{
+  display:flex;align-items:center;justify-content:space-between;gap:22px;
+  font-family:var(--bc-serif);font-size:19px;font-weight:700;letter-spacing:.08em;
+}
+.quiz-cta-btn b{font-size:22px;font-weight:400}
+.quiz-cta-btn em{font-style:normal;font-size:11px;color:#f0c9c2;letter-spacing:.05em}
+.quiz-cta-btn em strong{color:#fff}
+@media (max-width:760px){
+  .quiz-cta{padding:26px 22px;gap:22px}
+  .quiz-cta-btn{width:100%}
+  .quiz-cta-btn span{font-size:17px}
+}
+@media (prefers-reduced-motion:reduce){
+  .quiz-cta-btn{transition:none}
+}

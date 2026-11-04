@@ -29,6 +29,17 @@
   }
 
   /* ---------------- 顶栏当前页 ---------------- */
+  function injectQuizNav() {
+    var nav = document.querySelector('.bc-nav');
+    if (!nav) return;
+    if (nav.querySelector('a[data-page="quiz.html"]')) return;
+    var a = document.createElement('a');
+    a.href = ROOT_PREFIX + 'quiz.html';
+    a.setAttribute('data-page', 'quiz.html');
+    a.textContent = '做题';
+    nav.appendChild(a);
+  }
+
   function markCurrentNav() {
     var file = currentFile();
     var links = document.querySelectorAll('.bc-nav a');
@@ -394,6 +405,7 @@
 
   /* ---------------- 启动 ---------------- */
   function init() {
+    injectQuizNav();
     markCurrentNav();
     buildModal();
     bindGlobal();

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>药性小测 · 本草经纬</title>
+<meta name="description" content="从 193 味中药里现场出题：药选功效、功效选药、分类选药、多选挑战、混合模式。自动判分，错题集保存在本机浏览器。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23a8342a'/%3E%3Ctext x='32' y='45' font-size='38' text-anchor='middle' fill='%23f7f3ea' font-family='serif'%3E本%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/quiz.css">
+</head>
+<body class="site-quiz" data-page="quiz.html">
+
+<!-- ==================== 站点头部 ==================== -->
+<div class="bc-bar">
+  <div class="bc-bar-in">
+    <a class="bc-brand" href="index.html" aria-label="本草经纬首页">
+      <span class="bc-seal">本</span>
+      <span class="bc-brand-txt"><strong>本草经纬</strong><em>中药记忆图谱</em></span>
+    </a>
+    <div class="bc-nav" role="navigation" aria-label="全站大类导航">
+      <a href="index.html" data-page="index.html">首页</a>
+      <a href="library/解表药.html" data-page="library/解表药.html">解表</a>
+      <a href="library/清热药.html" data-page="library/清热药.html">清热</a>
+      <a href="library/攻下药.html" data-page="library/攻下药.html">泻下</a>
+      <a href="library/利水渗湿药.html" data-page="library/利水渗湿药.html">祛湿</a>
+      <a href="library/温里药.html" data-page="library/温里药.html">温里</a>
+      <a href="library/止咳化痰药.html" data-page="library/止咳化痰药.html">化痰</a>
+      <a href="library/行气消食药.html" data-page="library/行气消食药.html">理气</a>
+      <a href="library/活血止血药.html" data-page="library/活血止血药.html">活血</a>
+      <a href="library/补虚益气药.html" data-page="library/补虚益气药.html">补虚</a>
+      <a href="quiz.html" data-page="quiz.html">做题</a>
+    </div>
+    <button class="bc-search-trigger" type="button" data-bc-open-search aria-label="搜索全站药材">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4.2 4.2"/></svg>
+      <span>搜索药材</span>
+      <kbd>Ctrl K</kbd>
+    </button>
+  </div>
+</div>
+
+<main>
+
+  <!-- ==================== Hero ==================== -->
+  <section class="quiz-hero">
+    <div class="q-inner">
+      <span class="q-eyebrow">药性小测 · 从 193 味药里现场出题</span>
+      <h1>背过的，<em>才是你的</em>。</h1>
+      <p class="q-lead">题型从导图数据里实时生成：给药选功效、给功效选药、给分类选药、多选挑战，也可以直接混合挑战。<b>成绩、正确率和错题集都保存在本机浏览器</b>，关掉页面下次打开还在。</p>
+      <div class="q-stat-row" id="quizStats" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <div class="quiz-wrap">
+
+    <!-- ==================== 选择题型 ==================== -->
+    <section class="q-panel" id="quizSetup">
+      <div class="q-panel-head">
+        <h2>选择题型</h2>
+        <p>题库覆盖全站 193 味药；每轮题目随机生成，同轮内不重复。多选需全部选对才得分。</p>
+      </div>
+      <div class="q-modes" id="quizModes"></div>
+      <div class="q-scope" id="quizScopeWrap" hidden>
+        <div class="q-scope-head">
+          <span>训练范围</span>
+          <em id="quizScopeNote"></em>
+        </div>
+        <div class="q-scope-opts" id="quizScopes"></div>
+      </div>
+      <div class="q-config">
+        <div class="q-count">
+          <span>每轮题量</span>
+          <div class="q-count-opts" id="quizCounts"></div>
+        </div>
+        <button class="q-start" id="quizStart" type="button">开始答题 <span>→</span></button>
+      </div>
+    </section>
+
+    <!-- ==================== 答题区 ==================== -->
+    <section class="q-panel q-game" id="quizGame" hidden>
+      <div class="q-game-top">
+        <div class="q-game-meta">
+          <span class="q-mode-chip" id="gameMode"></span>
+          <span id="gameProgressText">第 1 / 10 题</span>
+          <button class="q-quit" id="gameQuit" type="button">退出本轮</button>
+        </div>
+        <div class="q-game-score"><b id="gameScore">0</b><span>分</span></div>
+      </div>
+      <div class="q-progress" aria-hidden="true"><i id="gameProgressBar"></i></div>
+      <div class="q-question" id="gameQuestion" aria-live="polite"></div>
+      <div class="q-options" id="gameOptions"></div>
+      <div class="q-feedback" id="gameFeedback" hidden aria-live="polite"></div>
+      <div class="q-game-foot">
+        <span class="q-kbd-hint" id="gameHint">按 1–4 作答 · Enter 下一题</span>
+        <button class="q-next" id="gameNext" type="button" disabled>下一题 →</button>
+      </div>
+    </section>
+
+    <!-- ==================== 本轮成绩 ==================== -->
+    <section class="q-panel" id="quizResult" hidden></section>
+
+    <!-- ==================== 错题集 ==================== -->
+    <section class="q-panel" id="quizWrong">
+      <div class="q-panel-head">
+        <h2>错题集 <span id="wrongCountBadge" hidden>0</span></h2>
+        <p>答错的题会自动收进来；重做答对后自动移出。数据保存在本机浏览器，不上传。</p>
+      </div>
+      <div class="q-wrong-tools" id="wrongTools"></div>
+      <div class="q-wrong-list" id="wrongList"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="quiz-foot">
+  <b>本草经纬 · 药性小测</b> · 题目由导图数据自动生成 · 内容仅用于中医学习，不构成诊疗建议
+</footer>
+
+<script src="assets/herbs.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/quiz.js"></script>
+</body>
+</html>
