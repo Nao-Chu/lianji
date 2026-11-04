@@ -2,7 +2,7 @@
 chcp 65001 >nul
 setlocal
 cd /d "%~dp0"
-title 本草经纬 · 本地网站服务
+title 里安记 · 本地网站服务
 
 set "PORT=8765"
 
@@ -26,7 +26,7 @@ if not defined PYCMD (
 )
 
 echo.
-echo   本草经纬 · 本地网站服务
+echo   里安记 · 本地网站服务
 echo   ------------------------------------------
 echo   本机访问:   http://127.0.0.1:%PORT%/
 for /f "tokens=1,2 delims=:" %%a in ('ipconfig ^| findstr /c:"IPv4"') do (
@@ -36,7 +36,7 @@ echo   停止服务:   关闭服务窗口，或在该窗口按 Ctrl+C
 echo   ------------------------------------------
 echo.
 
-start "本草经纬服务" %PYCMD% -m http.server %PORT% --bind 0.0.0.0
+start "里安记服务" %PYCMD% -m http.server %PORT% --bind 0.0.0.0
 %SystemRoot%\System32\ping.exe -n 3 127.0.0.1 >nul
 
 start "" "http://127.0.0.1:%PORT%/"

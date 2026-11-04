@@ -1,5 +1,5 @@
 /* ==========================================================================
-   本草经纬 · 药性小测
+   里安记 · 药性小测
    依赖：assets/herbs.js（window.SITE）
    题目由 193 味药的数据现场生成；成绩与错题保存在 localStorage
    ========================================================================== */
@@ -7,7 +7,7 @@
   'use strict';
 
   var S = window.SITE;
-  if (!S || !S.herbs) { console.warn('[本草经纬] 做题页未找到站点数据'); return; }
+  if (!S || !S.herbs) { console.warn('[里安记] 做题页未找到站点数据'); return; }
 
   var HERBS = S.herbs.filter(function (h) { return h && h.n; });
   var herbByName = {};

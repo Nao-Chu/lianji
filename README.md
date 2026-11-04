@@ -1,8 +1,8 @@
-# 本草经纬 · 中药记忆图谱
+# 里安记 · 中医学习笔记
 
-把九张孤立的中药分类导图，串成一张可以搜索、跳转、互相对照的记忆网络。
+里安记是一个面向中医学习者的静态学习站。当前以九张中药分类导图为核心，把孤立的知识点串成一张可以搜索、跳转、互相对照的记忆网络；方剂板块在后续规划中。
 
-**在线访问：** <https://nao-chu.github.io/bencao-jingwei/>
+**在线访问：** <https://nao-chu.github.io/lianji/>
 
 纯静态站点，无框架、无构建步骤，双击即可离线使用。
 
@@ -43,7 +43,7 @@
 每味药都有稳定的锚点，可以直接分享到具体一味药：
 
 ```
-https://nao-chu.github.io/bencao-jingwei/library/清热药.html#herb-黄连
+https://nao-chu.github.io/lianji/library/清热药.html#herb-黄连
 ```
 
 打开后药卡会短暂高亮，方便课堂演示或笔记引用。
@@ -107,7 +107,7 @@ python -m http.server 8000
 ## 目录结构
 
 ```
-中医药剂图/
+里安记/
 ├─ index.html            # 首页：概览、九大类入口、学习路径、索引
 ├─ quiz.html             # 药性小测
 ├─ library/              # 九张分类导图
@@ -196,7 +196,7 @@ python -m http.server 8000
 
 ```bash
 python tools/build_data.py
-python tools/deploy_api.py
+PYTHONUTF8=1 python tools/deploy_api.py
 ```
 
 前者用于内容修改后同步数据，后者仅在需要发布时执行；`deploy_api.py` 会拒绝在有未提交改动时运行。
@@ -205,18 +205,19 @@ python tools/deploy_api.py
 
 ## 部署
 
-站点托管在 GitHub Pages，仓库为 `Nao-Chu/bencao-jingwei`，发布分支 `main`，目录为仓库根目录。
+站点托管在 GitHub Pages，仓库为 `Nao-Chu/lianji`，发布分支 `main`，目录为仓库根目录。
 
 标准流程：
 
 1. 修改 `library/`、`assets/` 或 `index.html`；
-2. 提交并推送到 `main`；
-3. GitHub Pages 自动重建，约 1～2 分钟后生效。
+2. 提交到本地 `main`；
+3. 运行 `PYTHONUTF8=1 python tools/deploy_api.py` 发布（本机直连 `github.com` 被阻断，脚本改走 GitHub API）；
+4. GitHub Pages 自动重建，约 1～2 分钟后生效。
 
 线上地址：
 
-- 首页：<https://nao-chu.github.io/bencao-jingwei/>
-- 导图示例：<https://nao-chu.github.io/bencao-jingwei/library/清热药.html>
+- 首页：<https://nao-chu.github.io/lianji/>
+- 导图示例：<https://nao-chu.github.io/lianji/library/清热药.html>
 
 `index.html` 必须保留在仓库根目录；`.nojekyll` 用于避免 Jekyll 忽略下划线开头的文件。
 

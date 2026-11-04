@@ -133,7 +133,7 @@ for meta in PAGES:
     all_herbs.extend(hs)
 
 data = dict(built=datetime.date.today().isoformat(), pages=pages_out, herbs=all_herbs)
-js = "/* 本草经纬 · 站点数据（由 %d 张导图自动提取，请勿手改） */\nwindow.SITE = " % len(pages_out) + json.dumps(data, ensure_ascii=False, indent=1) + ";\n"
+js = "/* 里安记 · 站点数据（由 %d 张导图自动提取，请勿手改） */\nwindow.SITE = " % len(pages_out) + json.dumps(data, ensure_ascii=False, indent=1) + ";\n"
 io.open(os.path.join(BASE, "assets", "herbs.js"), "w", encoding="utf-8").write(js)
 
 print("pages:", len(pages_out), "herbs:", len(all_herbs), "cats:", sum(p["stats"]["cats"] for p in pages_out), "groups:", sum(p["stats"]["groups"] for p in pages_out))

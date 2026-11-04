@@ -1,12 +1,12 @@
 /* ==========================================================================
-   本草经纬 · 全站交互
+   里安记 · 全站交互
    依赖：assets/herbs.js（window.SITE）
    ========================================================================== */
 (function () {
   'use strict';
 
   var S = window.SITE;
-  if (!S) { console.warn('[本草经纬] 未找到站点数据 assets/herbs.js'); return; }
+  if (!S) { console.warn('[里安记] 未找到站点数据 assets/herbs.js'); return; }
 
   var pageByFile = {};
   S.pages.forEach(function (p, i) { p._order = i; pageByFile[p.file] = p; });
@@ -76,7 +76,7 @@
         '</div>' +
         '<div class="bc-search-meta"><span data-bc-meta-left>全站 ' + S.herbs.length + ' 味药 · ' + CAT_TOTAL + ' 类</span><span>药名 / 功效 / 主证</span></div>' +
         '<div class="bc-search-results" data-bc-results></div>' +
-        '<div class="bc-search-foot"><span>↑↓ 选择 · Enter 打开 · Esc 关闭</span><span>本草经纬 · 全站索引</span></div>' +
+        '<div class="bc-search-foot"><span>↑↓ 选择 · Enter 打开 · Esc 关闭</span><span>里安记 · 全站索引</span></div>' +
       '</div>';
     document.body.appendChild(modal);
     input = modal.querySelector('input');

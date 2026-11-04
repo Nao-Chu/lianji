@@ -1,7 +1,7 @@
 import base64, json, subprocess, sys, os, tempfile, time
 from datetime import datetime, timedelta, timezone
 
-REPO = "Nao-Chu/bencao-jingwei"
+REPO = "Nao-Chu/lianji"
 API = "https://api.github.com"
 # 仓库根目录：<repo>/tools/
 BASE = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."))
